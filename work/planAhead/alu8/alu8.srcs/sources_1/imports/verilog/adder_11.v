@@ -162,6 +162,6 @@ module adder_11 (
     sum[7+0-:1] = M_fa7_sum;
     n = M_fa7_sum;
     z = !(M_fa0_sum || M_fa1_sum || M_fa2_sum || M_fa3_sum || M_fa4_sum || M_fa5_sum || M_fa6_sum || M_fa7_sum);
-    v = M_fa7_cout;
+    v = ((a[7+0-:1] && xb[7+0-:1] && ~M_fa7_sum) || (~a[7+0-:1] && ~xb[7+0-:1] && M_fa7_sum));
   end
 endmodule

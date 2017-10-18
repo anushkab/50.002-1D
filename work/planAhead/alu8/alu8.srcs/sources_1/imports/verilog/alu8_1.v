@@ -8,7 +8,8 @@ module alu8_1 (
     input [7:0] a,
     input [7:0] b,
     input [5:0] alufn,
-    output reg [7:0] alu
+    output reg [7:0] alu,
+    output reg [2:0] test
   );
   
   
@@ -85,6 +86,9 @@ module alu8_1 (
     M_compare_n = M_arith_n;
     M_compare_alufn = alufn[1+1-:2];
     out[24+7-:8] = M_compare_cmp;
+    test[2+0-:1] = M_arith_z;
+    test[1+0-:1] = M_arith_v;
+    test[0+0-:1] = M_arith_n;
     if (alufn[4+1-:2] == 2'h0) begin
       alu = out[0+7-:8];
     end else begin

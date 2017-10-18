@@ -40,6 +40,6 @@ module adder (
     
     z = !(fa0.sum || fa1.sum || fa2.sum || fa3.sum || fa4.sum || fa5.sum || fa6.sum || fa7.sum);
     
-    v = ((a[7] && b[7] && !fa7.sum) || (!a[7] && !b[7] && fa7.sum));
+    v = ((a[7] && xb[7] && ~fa7.sum) || (~a[7] && ~xb[7] && fa7.sum));
   }
 }

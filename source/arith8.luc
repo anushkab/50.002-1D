@@ -14,7 +14,7 @@ module arith8 (
   always {
     adder8.a = a; adder8.b = b; adder8.alufn = alufn[0];
     mul8.a = a; mul8.b = b;
-    z = adder8.z; n = adder8.n; v = adder8.n;
+    z = adder8.z; n = adder8.n; v = adder8.v;
     
     if (alufn[1] == 1) {
       out = mul8.p;  
