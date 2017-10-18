@@ -5,85 +5,120 @@ module shift8 (
     output shift[8]
   ) {
 
-  sig xa[8];
-  sig r;
   sig x[8];
   sig y[8];
   sig z[8];
   var i;
   
   always {
-    
-    // reverse inputs for right shift
-    if (alufn[0] == 1) {
-      for (i = 0; i < 8; i++) {
-        xa[i] = a[7 - i];
-      }
-    } else {
-      xa = a;
+     //shift left
+    if(alufn[0]==0&&alufn[1]==0){    
+      if(b[2]==0){
+         x=a;
+       }else{
+         for(i=0;i<8;i++){          
+           if(i<4){
+             x[i]=0;
+           }else{
+             x[i]=a[i-4];
+           }
+         }
+       }      
+      if(b[1]==0){
+         y=x;
+       }else{
+         for(i=0;i<8;i++){          
+           if(i<2){
+             y[i]=0;
+           }else{
+             y[i]=x[i-2];
+           }
+         }
+       }
+      if(b[0]==0){
+         z=y;
+       }else{
+         for(i=0;i<8;i++){          
+           if(i==0){
+             z[i]=0;
+           }else{
+             z[i]=y[i-1];
+           }
+         }
+       }      
     }
-    
-    // logic for arithmetic shift
-    if (alufn[1] == 1) {
-      //for (i = 0; i < 8; i++) {
-        r = a[7];
-      //}
-    } else {
-      //for (i = 0; i < 8; i++) {
-        r = 0;  
-      //}
+    //shift right
+    if(alufn[0]==1&&alufn[1]==0){
+      if(b[2]==0){
+         x=a;
+       }else{
+         for(i=0;i<8;i++){          
+           if(i>3){
+             x[i]=0;
+           }else{
+             x[i]=a[i+4];
+           }
+         }
+       }      
+      if(b[1]==0){
+         y=x;
+       }else{
+         for(i=0;i<8;i++){          
+           if(i>5){
+             y[i]=0;
+           }else{
+             y[i]=x[i+2];
+           }
+         }
+       }
+      if(b[0]==0){
+         z=y;
+       }else{
+         for(i=0;i<8;i++){          
+           if(i==7){
+             z[i]=0;
+           }else{
+             z[i]=y[i+1];
+           }
+         }
+       }
     }
-    
-    
-    // shift logic
-    if (b[2] == 1) {
-      for (i = 0; i < 4; i++) {
-        x[i] = r;
-      }
-      for (i = 4; i < 8; i++) {
-        x[i] = xa[i];
-      } 
-    } else {
-      for (i = 0; i < 8; i++) {
-        x[i] = xa[i];
-      }
-    }
-      
-    if (b[1] == 1) {
-      for (i = 0; i < 2; i++) {
-        y[i] = r;
-      }
-      for (i = 2; i < 8; i++) {
-        y[i] = x[i];
-      }
-    } else {
-      for (i = 0; i < 8; i++) {
-        y[i] = x[i];
-      }  
-    }
-      
-    if (b[0] == 1) {
-      for (i = 1; i < 8; i++) {
-        z[i] = y[i];
-      }
-      z[0] = r;
-      for (i = 1; i < 8; i++) {
-        z[i] = y[i];
-      }
-    } else {
-      for (i = 0; i < 8; i++) {
-        z[i] = y[i];
-      }  
-    }
-    
-      
-    // reverse outputs for right shift
-    if (alufn[0] == 1) {
-      for (i = 0; i < 8; i++) {
-        shift[i] = z[7 - i];
-      }
-    } else {
-      shift = z;
-    }
+    //shift right with algorithm
+    if(alufn[0]==1&&alufn[1]==1){ 
+      if(b[2]==0){
+         x=a;
+       }else{
+         for(i=0;i<8;i++){          
+           if(i>3){
+             x[i]=a[7];
+           }else{
+             x[i]=a[i+4];
+           }
+         }
+       }      
+      if(b[1]==0){
+         y=x;
+       }else{
+         for(i=0;i<8;i++){          
+           if(i>5){
+             y[i]=x[7];
+           }else{
+             y[i]=x[i+2];
+           }
+         }
+       }
+      if(b[0]==0){
+         z=y;
+       }else{
+         for(i=0;i<8;i++){          
+           if(i==7){
+             z[i]=y[7];
+           }else{
+             z[i]=y[i+1];
+           }
+         }
+       }
+    }  
+    shift=z;
   }
 }
