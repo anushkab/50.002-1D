@@ -43,37 +43,31 @@ module shift8_7 (
         x[(i)*1+0-:1] = r;
       end
       for (i = 3'h4; i < 4'h8; i = i + 1) begin
-        x[(i)*1+0-:1] = xa[(i)*1+0-:1];
+        x[(i)*1+0-:1] = xa[(i - 3'h4)*1+0-:1];
       end
     end else begin
-      for (i = 1'h0; i < 4'h8; i = i + 1) begin
-        x[(i)*1+0-:1] = xa[(i)*1+0-:1];
-      end
+      x = xa;
     end
     if (b[1+0-:1] == 1'h1) begin
       for (i = 1'h0; i < 2'h2; i = i + 1) begin
         y[(i)*1+0-:1] = r;
       end
       for (i = 2'h2; i < 4'h8; i = i + 1) begin
-        y[(i)*1+0-:1] = x[(i)*1+0-:1];
+        y[(i)*1+0-:1] = x[(i - 2'h2)*1+0-:1];
       end
     end else begin
-      for (i = 1'h0; i < 4'h8; i = i + 1) begin
-        y[(i)*1+0-:1] = x[(i)*1+0-:1];
-      end
+      y = x;
     end
     if (b[0+0-:1] == 1'h1) begin
       for (i = 1'h1; i < 4'h8; i = i + 1) begin
-        z[(i)*1+0-:1] = y[(i)*1+0-:1];
+        z[(i)*1+0-:1] = r;
       end
       z[0+0-:1] = r;
       for (i = 1'h1; i < 4'h8; i = i + 1) begin
-        z[(i)*1+0-:1] = y[(i)*1+0-:1];
+        z[(i)*1+0-:1] = y[(i - 1'h1)*1+0-:1];
       end
     end else begin
-      for (i = 1'h0; i < 4'h8; i = i + 1) begin
-        z[(i)*1+0-:1] = y[(i)*1+0-:1];
-      end
+      z = y;
     end
     if (alufn[0+0-:1] == 1'h1) begin
       for (i = 1'h0; i < 4'h8; i = i + 1) begin

@@ -50,7 +50,7 @@ module arith8_4 (
     M_mul8_b = b;
     z = M_adder8_z;
     n = M_adder8_n;
-    v = M_adder8_n;
+    v = M_adder8_v;
     if (alufn[1+0-:1] == 1'h1) begin
       out = M_mul8_p;
     end else begin

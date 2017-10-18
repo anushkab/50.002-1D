@@ -38,12 +38,16 @@ module mojo_top_0 (
   
   reg mode;
   
+  reg [3:0] test;
+  
   wire [8-1:0] M_alu8test_alu;
+  wire [3-1:0] M_alu8test_test;
   alu8_1 alu8test (
     .a(a),
     .b(b),
     .alufn(alufn),
-    .alu(M_alu8test_alu)
+    .alu(M_alu8test_alu),
+    .test(M_alu8test_test)
   );
   
   wire [1-1:0] M_reset_cond_out;
@@ -91,7 +95,8 @@ module mojo_top_0 (
         b = io_dip[8+7-:8];
         alufn = io_dip[16+0+5-:6];
         alu = M_alu8test_alu;
-        M_seg_values = {4'h0, 4'h0, alu[4+3-:4], alu[0+3-:4]};
+        test = M_alu8test_test;
+        M_seg_values = {test, 4'h0, alu[4+3-:4], alu[0+3-:4]};
         io_led[0+7-:8] = a;
         io_led[8+7-:8] = b;
         io_led[16+7-:8] = alu;

@@ -24,6 +24,7 @@ module mojo_top (
   sig alufn[6];
   sig alu[8];
   sig mode;
+  sig test[4];
   
   alu8 alu8test(.a(a), .b(b), .alufn(alufn));
   
@@ -62,7 +63,9 @@ module mojo_top (
         b = io_dip[1];
         alufn = io_dip[2][5:0];
         alu = alu8test.alu;
-        seg.values = {4h0, 4h0, alu[7:4], alu[3:0]};
+        test = alu8test.test;
+        seg.values = {test, 4h0, alu[7:4], alu[3:0]};
+        
         io_led[0] = a;
         io_led[1] = b;
         io_led[2] = alu;

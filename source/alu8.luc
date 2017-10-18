@@ -2,7 +2,8 @@ module alu8 (
     input a[8],
     input b[8],
     input alufn[6],
-    output alu[8]
+    output alu[8],
+    output test[3]
   ) {
 
 arith8 arith;
@@ -18,7 +19,7 @@ sig out[4][8];
     boole.a = a; boole.b = b; boole.alufn = alufn[3:0]; out[1] = boole.boole;
     shift.a = a; shift.b = b[2:0]; shift.alufn = alufn[1:0]; out[2] = shift.shift;
     compare.z = arith.z; compare.v = arith.v; compare.n = arith.n; compare.alufn = alufn[2:1]; out[3] = compare.cmp;
-    
+    test[2] = arith.z; test[1] = arith.v; test[0] = arith.n;
     
     if (alufn[5:4] == 2b00){
       alu = out[0];
