@@ -5,6 +5,7 @@ module shift8 (
     output shift[8]
   ) {
 
+  sig xa[8];
   sig x[8];
   sig y[8];
   sig z[8];
@@ -12,16 +13,21 @@ module shift8 (
   var i;
   
   always {
-
-// logic for arithmetic shift
-    if (alufn[1] == 1) {
-      //for (i = 0; i < 8; i++) {
-        r = a[7];
-      //}
+  
+    // reverse inputs for right shift
+    if (alufn[0] == 1) {
+      for (i = 0; i < 8; i++) {
+        xa[i] = a[7-i];
+      }
     } else {
-      //for (i = 0; i < 8; i++) {
+      xa = a;
+    }
+
+    // logic for arithmetic shift
+    if (alufn[1] == 1) {
+        r = a[7];
+    } else {
         r = 0;  
-      //}
     }
     
     
@@ -69,4 +75,5 @@ module shift8 (
     } else {
       shift = z;
     }
+  }
 }
