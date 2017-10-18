@@ -1,0 +1,35 @@
+module alu8 (
+    input a[8],
+    input b[8],
+    input alufn[6],
+    output alu[8]
+  ) {
+
+arith8 arith;
+compare8 compare;
+boole8 boole;
+shift8 shift;  
+  
+sig out[4][8];
+  
+  always {
+    
+    arith.a = a; arith.b = b; arith.alufn = alufn[1:0]; out[0] = arith.out;
+    boole.a = a; boole.b = b; boole.alufn = alufn[3:0]; out[1] = boole.boole;
+    shift.a = a; shift.b = b[2:0]; shift.alufn = alufn[1:0]; out[2] = shift.shift;
+    compare.z = arith.z; compare.v = arith.v; compare.n = arith.n; compare.alufn = alufn[2:1]; out[3] = compare.cmp;
+    
+    
+    if (alufn[5:4] == 2b00){
+      alu = out[0];
+    } else if (alufn[5:4] == 2b01) {
+      alu = out[1];
+    } else if (alufn[5:4] == 2b10) {
+      alu = out[2];
+    } else if (alufn[5:4] == 2b11) {
+      alu = out[3];
+    } else {
+      alu = 0;
+    }
+  }
+}

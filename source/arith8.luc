@@ -1,0 +1,25 @@
+module arith8 (
+    input a[8],
+    input b[8],
+    input alufn[2],
+    output out[8],
+    output z,
+    output n,
+    output v
+  ) {
+  
+  adder adder8;
+  mul mul8;
+  
+  always {
+    adder8.a = a; adder8.b = b; adder8.alufn = alufn[0];
+    mul8.a = a; mul8.b = b;
+    z = adder8.z; n = adder8.n; v = adder8.n;
+    
+    if (alufn[1] == 1) {
+      out = mul8.p;  
+    } else {
+      out = adder8.sum;
+    }
+  }
+}

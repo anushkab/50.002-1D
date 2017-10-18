@@ -1,0 +1,34 @@
+module boole8 (
+    input a[8],  
+    input b[8], 
+    input alufn[4],
+    output boole[8]
+  ) {
+
+  var i;
+  
+  always {
+    
+    if (alufn == 4b1000) {
+      for (i = 0; i < 8; i++) {
+        boole[i] = a[i] & b[i];
+      }
+    } else if (alufn == 4b1110) {
+      for (i = 0; i < 8; i++) {
+        boole[i] = a[i] | b[i];
+      }
+    } else if (alufn == 4b0110) {
+      for (i = 0; i < 8; i++) {
+        boole[i] = a[i] ^ b[i];
+      }
+    } else if (alufn == 4b1010) {
+      for (i = 0; i < 8; i++) {
+        boole[i] = a[i];
+      }
+    } else {
+      for (i = 0; i < 8; i++) {
+        boole[i] = 0;
+      }
+    }
+  }
+}
