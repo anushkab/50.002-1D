@@ -8,6 +8,7 @@
     <src>boole8.luc</src>
     <src>multi_seven_seg.luc</src>
     <src top="true">mojo_top.luc</src>
+    <src>boole_test.luc</src>
     <src>arith8.luc</src>
     <src>mul.luc</src>
     <src>test_rig.luc</src>
