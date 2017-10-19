@@ -21,7 +21,7 @@ module alu8_1 (
   reg [8-1:0] M_arith_a;
   reg [8-1:0] M_arith_b;
   reg [2-1:0] M_arith_alufn;
-  arith8_4 arith (
+  arith8_6 arith (
     .a(M_arith_a),
     .b(M_arith_b),
     .alufn(M_arith_alufn),
@@ -36,7 +36,7 @@ module alu8_1 (
   reg [1-1:0] M_compare_n;
   reg [1-1:0] M_compare_v;
   reg [2-1:0] M_compare_alufn;
-  compare8_5 compare (
+  compare8_7 compare (
     .z(M_compare_z),
     .n(M_compare_n),
     .v(M_compare_v),
@@ -48,7 +48,7 @@ module alu8_1 (
   reg [8-1:0] M_boole_a;
   reg [8-1:0] M_boole_b;
   reg [4-1:0] M_boole_alufn;
-  boole8_6 boole (
+  boole8_8 boole (
     .a(M_boole_a),
     .b(M_boole_b),
     .alufn(M_boole_alufn),
@@ -59,7 +59,7 @@ module alu8_1 (
   reg [8-1:0] M_shift_a;
   reg [3-1:0] M_shift_b;
   reg [2-1:0] M_shift_alufn;
-  shift8_7 shift (
+  shift8_9 shift (
     .a(M_shift_a),
     .b(M_shift_b),
     .alufn(M_shift_alufn),

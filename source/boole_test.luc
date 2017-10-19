@@ -1,0 +1,163 @@
+module boole_test (
+    input clk,  // clock
+    input rst,  // reset
+    input alu[8], // input from alu module
+    input test[3],
+    output testA[8], // test outputs to alu module
+    output testB[8],
+    output alufn[6],
+    input reset // reset fsm to first state
+  ) {
+
+  fsm state(.clk(clk), .rst(rst)) = {ANDTEST0, ANDTEST1, ORTEST0, ORTEST1, XORTEST0, XORTEST1, ATEST0, ATEST1, END}; 
+  dff counter[28](.clk(clk), .rst(rst));
+  sig getNextState;
+  sig resetFSM;
+  
+  always {
+    testA = 0;
+    testB = 0;
+    alufn = 0;
+    resetFSM = reset;
+    
+    counter.d = counter.q + 1;
+    if (counter.q == 28hfffffff) {
+      getNextState = 1;
+    } else {
+      getNextState = 0;
+    }
+    
+    
+    case (state.q) {
+    
+      state.ANDTEST0:
+        testA = 8h0F;
+        testB = 8h0F;
+        alufn = 6h18;
+      
+        if (getNextState == 1) {
+          if (alu == 8h0F && test == 3h0) {
+            state.d = state.ANDTEST1;
+          } 
+        } else {
+          state.d = state.ANDTEST0;
+        }
+        
+      state.ANDTEST1:
+        testA = 8hFF;
+        testB = 8hAA;
+        alufn = 6h18;
+      
+        if (getNextState == 1) {
+          if (alu == 8hAA && test == 3h1) {
+            state.d = state.ORTEST0;
+          } else if (resetFSM == 1) {
+            state.d = state.ANDTEST0;
+          }
+        } else {
+          state.d = state.ANDTEST1;
+        }
+        
+      state.ORTEST0:
+        testA = 8h0F;
+        testB = 8hF0;
+        alufn = 6h1E;
+      
+        if (getNextState == 1) {
+          if (alu == 8hFF && test == 3h1) {
+            state.d = state.ORTEST1;
+          } else if (resetFSM == 1) {
+            state.d = state.ANDTEST0;
+          }
+        } else {
+          state.d = state.ORTEST0;
+        }
+        
+      state.ORTEST1:
+        testA = 8h33;
+        testB = 8h5A;
+        alufn = 6h1E;
+      
+        if (getNextState == 1) {
+          if (alu == 8h7B && test == 3h3) {
+            state.d = state.XORTEST0;
+          } else if (resetFSM == 1) {
+            state.d = state.ANDTEST0;
+          }
+        } else {
+          state.d = state.ORTEST1;
+        }
+        
+      state.XORTEST0:
+        testA = 8h0F;
+        testB = 8h0F;
+        alufn = 6h16;
+      
+        if (getNextState == 1) {
+          if (alu == 8h00 && test == 3h0) {
+            state.d = state.XORTEST1;
+          } else if (resetFSM == 1) {
+            state.d = state.ANDTEST0;
+          }
+        } else {
+          state.d = state.XORTEST0;
+        }
+        
+      state.XORTEST1:
+        testA = 8h33;
+        testB = 8h5A;
+        alufn = 6h16;
+      
+        if (getNextState == 1) {
+          if (alu == 8h69 && test == 3h3) {
+            state.d = state.XORTEST1;
+          } else if (resetFSM == 1) {
+            state.d = state.ANDTEST0;
+          }
+        } else {
+          state.d = state.XORTEST0;
+        }
+        
+      state.ATEST0:
+        testA = 8h0F;
+        testB = 8hCC;
+        alufn = 6h1A;
+      
+        if (getNextState == 1) {
+          if (alu == 8h0F && test == 3h1) {
+            state.d = state.ATEST1;
+          } else if (resetFSM == 1) {
+            state.d = state.ANDTEST0;
+          }
+        } else {
+          state.d = state.ATEST0;
+        }
+        
+      state.ATEST1:
+        testA = 8h33;
+        testB = 8hF0;
+        alufn = 6h1A;
+      
+        if (getNextState == 1) {
+          if (alu == 8hCC && test == 3h0) {
+            state.d = state.END;
+          } else if (resetFSM == 1) {
+            state.d = state.ANDTEST0;
+          }
+        } else {
+          state.d = state.ATEST1;
+        } 
+        
+      state.END:
+        testA = 8h00;
+        testB = 8h00;
+        alufn = 6h00;
+        
+        if (getNextState == 1) {
+          if (resetFSM == 1) {
+            state.d = state.ANDTEST0;
+          } 
+        } 
+    }
+  }
+}

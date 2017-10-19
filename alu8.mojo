@@ -13,6 +13,8 @@
     <src>mul.luc</src>
     <src>test_rig.luc</src>
     <src>seven_seg.luc</src>
+    <src>cmp_test.luc</src>
+    <src>shift_test.luc</src>
     <src>adder.luc</src>
     <src>adder_test.luc</src>
     <src>full_adder.luc</src>
@@ -20,6 +22,8 @@
     <ucf lib="true">mojo.ucf</ucf>
     <component>decoder.luc</component>
     <component>reset_conditioner.luc</component>
+    <component>pipeline.luc</component>
     <component>counter.luc</component>
+    <component>edge_detector.luc</component>
   </files>
 </project>
