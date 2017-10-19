@@ -14,12 +14,16 @@ module adder_test (
   dff counter[28](.clk(clk), .rst(rst));
   sig getNextState;
   sig resetFSM;
+  sig aluTest[8];
+  sig testTest[3];
   
   always {
     
     testA = 0;
     testB = 0;
     alufn = 0;
+    aluTest = alu;
+    testTest = test;
     resetFSM = reset;    
     
     counter.d = counter.q + 1;
@@ -37,7 +41,7 @@ module adder_test (
         alufn = 6h00;
       
         if (getNextState == 1) {
-          if (alu == 8h02 && test == 3h0) {
+          if (aluTest == 8h02 && testTest == 3h0) {
             state.d = state.ADDTEST1;
           } 
         } else {
