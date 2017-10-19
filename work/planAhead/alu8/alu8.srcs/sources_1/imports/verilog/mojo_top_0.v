@@ -138,7 +138,7 @@ module mojo_top_0 (
         a = M_testRig_testA;
         b = M_testRig_testB;
         alufn = M_testRig_alufn;
-        alu = M_alu8test_test;
+        alu = M_alu8test_alu;
         test = M_alu8test_test;
         xtest = test[0+2-:3];
         select = io_dip[16+0+2-:3];

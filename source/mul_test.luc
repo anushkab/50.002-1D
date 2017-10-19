@@ -80,7 +80,7 @@ module mul_test (
         alufn = 6h02;
         
         if (getNextState == 1) {
-          if (alu == 8h02 && test == 3h0) {
+          if (alu == 8h02 && test == 3h1) {
             state.d = state.END;
           } else if (resetFSM == 1) {
             state.d = state.MULTEST0;

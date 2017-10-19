@@ -2,17 +2,14 @@ module test_rig (
     input clk,  // clock
     input rst,  // reset
     input alu[8], // input from alu module
-    input test[3], // z, v, n input from alu module
+    input test[4], // z, v, n, cin input from alu module
     input selector[3],
     output testA[8], // test outputs to alu module
     output testB[8],
     output alufn[6],
+    output cin,
     input reset
   ) {
-
-
-//  fsm state(.clk(clk), .rst(rst)) = {ADDERTEST, MULTEST, BOOLETEST, SHIFTTEST, CMPTEST}; 
-//  dff counter[28](.clk(clk), .rst(rst));
 
   sig select[3];
   sig pp[8];
@@ -31,10 +28,10 @@ module test_rig (
     .rst(rst) {
       .alu(pp) {
         .reset(reset) {
-          adder_test adderTest(.test(test));
-          mul_test mulTest(.test(test));
-          boole_test booleTest(.test(test));
-          shift_test shiftTest;
+          adder_test adderTest(.test(test[2:0]));
+          mul_test mulTest(.test(test[2:0]));
+          boole_test booleTest(.test(test[2:0]));
+          shift_test shiftTest(.cout(test[3]));
           cmp_test cmpTest;
         } 
       }
@@ -46,6 +43,7 @@ module test_rig (
     testA = 0;
     testB = 0;
     alufn = 0;
+    cin = 0;
     select = selector;
     
     pp[0] = pp0.out;
@@ -73,6 +71,7 @@ module test_rig (
       testA = shiftTest.testA;
       testB = shiftTest.testB;
       alufn = shiftTest.alufn;
+      cin = shiftTest.cin;
     } else if (select == 3h4) {
       testA = cmpTest.testA;
       testB = cmpTest.testB;

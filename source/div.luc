@@ -1,0 +1,12 @@
+module div (
+    input clk,  // clock
+    input rst,  // reset
+    input a[8],
+    input b[8],
+    output out
+  ) {
+
+  always {
+    out = 0;
+  }
+}

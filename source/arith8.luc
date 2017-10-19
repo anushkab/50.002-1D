@@ -16,7 +16,7 @@ module arith8 (
     mul8.a = a; mul8.b = b;
     z = adder8.z; n = adder8.n; v = adder8.v;
     
-    if (alufn[1] == 1) {
+    if (alufn == 2b10) {
       out = mul8.p;  
     } else {
       out = adder8.sum;

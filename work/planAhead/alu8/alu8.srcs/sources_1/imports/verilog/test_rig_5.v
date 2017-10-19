@@ -20,68 +20,114 @@ module test_rig_5 (
   
   reg [2:0] select;
   
+  reg [7:0] pp;
+  
+  wire [1-1:0] M_pp0_out;
+  pipeline_13 pp0 (
+    .clk(clk),
+    .in(alu[0+0-:1]),
+    .out(M_pp0_out)
+  );
+  wire [1-1:0] M_pp1_out;
+  pipeline_13 pp1 (
+    .clk(clk),
+    .in(alu[1+0-:1]),
+    .out(M_pp1_out)
+  );
+  wire [1-1:0] M_pp2_out;
+  pipeline_13 pp2 (
+    .clk(clk),
+    .in(alu[2+0-:1]),
+    .out(M_pp2_out)
+  );
+  wire [1-1:0] M_pp3_out;
+  pipeline_13 pp3 (
+    .clk(clk),
+    .in(alu[3+0-:1]),
+    .out(M_pp3_out)
+  );
+  wire [1-1:0] M_pp4_out;
+  pipeline_13 pp4 (
+    .clk(clk),
+    .in(alu[4+0-:1]),
+    .out(M_pp4_out)
+  );
+  wire [1-1:0] M_pp5_out;
+  pipeline_13 pp5 (
+    .clk(clk),
+    .in(alu[5+0-:1]),
+    .out(M_pp5_out)
+  );
+  wire [1-1:0] M_pp6_out;
+  pipeline_13 pp6 (
+    .clk(clk),
+    .in(alu[6+0-:1]),
+    .out(M_pp6_out)
+  );
+  wire [1-1:0] M_pp7_out;
+  pipeline_13 pp7 (
+    .clk(clk),
+    .in(alu[7+0-:1]),
+    .out(M_pp7_out)
+  );
   wire [8-1:0] M_adderTest_testA;
   wire [8-1:0] M_adderTest_testB;
   wire [6-1:0] M_adderTest_alufn;
-  adder_test_13 adderTest (
+  adder_test_21 adderTest (
     .clk(clk),
     .rst(rst),
-    .alu(alu),
-    .test(test),
+    .alu(pp),
     .reset(reset),
+    .test(test),
     .testA(M_adderTest_testA),
     .testB(M_adderTest_testB),
     .alufn(M_adderTest_alufn)
   );
-  
   wire [8-1:0] M_mulTest_testA;
   wire [8-1:0] M_mulTest_testB;
   wire [6-1:0] M_mulTest_alufn;
-  mul_test_14 mulTest (
+  mul_test_22 mulTest (
     .clk(clk),
     .rst(rst),
-    .alu(alu),
-    .test(test),
+    .alu(pp),
     .reset(reset),
+    .test(test),
     .testA(M_mulTest_testA),
     .testB(M_mulTest_testB),
     .alufn(M_mulTest_alufn)
   );
-  
   wire [8-1:0] M_booleTest_testA;
   wire [8-1:0] M_booleTest_testB;
   wire [6-1:0] M_booleTest_alufn;
-  boole_test_15 booleTest (
+  boole_test_23 booleTest (
     .clk(clk),
     .rst(rst),
-    .alu(alu),
-    .test(test),
+    .alu(pp),
     .reset(reset),
+    .test(test),
     .testA(M_booleTest_testA),
     .testB(M_booleTest_testB),
     .alufn(M_booleTest_alufn)
   );
-  
   wire [8-1:0] M_shiftTest_testA;
   wire [8-1:0] M_shiftTest_testB;
   wire [6-1:0] M_shiftTest_alufn;
-  shift_test_16 shiftTest (
+  shift_test_24 shiftTest (
     .clk(clk),
     .rst(rst),
-    .alu(alu),
+    .alu(pp),
     .reset(reset),
     .testA(M_shiftTest_testA),
     .testB(M_shiftTest_testB),
     .alufn(M_shiftTest_alufn)
   );
-  
   wire [8-1:0] M_cmpTest_testA;
   wire [8-1:0] M_cmpTest_testB;
   wire [6-1:0] M_cmpTest_alufn;
-  cmp_test_17 cmpTest (
+  cmp_test_25 cmpTest (
     .clk(clk),
     .rst(rst),
-    .alu(alu),
+    .alu(pp),
     .reset(reset),
     .testA(M_cmpTest_testA),
     .testB(M_cmpTest_testB),
@@ -93,6 +139,14 @@ module test_rig_5 (
     testB = 1'h0;
     alufn = 1'h0;
     select = selector;
+    pp[0+0-:1] = M_pp0_out;
+    pp[1+0-:1] = M_pp1_out;
+    pp[2+0-:1] = M_pp2_out;
+    pp[3+0-:1] = M_pp3_out;
+    pp[4+0-:1] = M_pp4_out;
+    pp[5+0-:1] = M_pp5_out;
+    pp[6+0-:1] = M_pp6_out;
+    pp[7+0-:1] = M_pp7_out;
     if (select == 3'h0) begin
       testA = M_adderTest_testA;
       testB = M_adderTest_testB;

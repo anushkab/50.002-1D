@@ -28,20 +28,21 @@ module mojo_top (
   sig xtest[3];
   sig select[3];
   sig reset;
+  sig cin;
   
-  alu8 alu8test(.a(a), .b(b), .alufn(alufn));
+  alu8 alu8test(.a(a), .b(b), .alufn(alufn), .cin(cin));
   
   .clk(clk) {
     // The reset conditioner is used to synchronize the reset signal to the FPGA
     // clock. This ensures the entire FPGA comes out of reset at the same time.
     reset_conditioner reset_cond;
-    edge_detector edge_detector(#RISE(0), #FALL(1), .in(clk));
+    //edge_detector edge_detector(#RISE(0), #FALL(1), .in(clk));
     
     .rst(rst){
       fsm mode_selector = {MANUAL, AUTO};
       multi_seven_seg seg;
-      test_rig testRig(.alu(alu), .test(xtest), .reset(reset), .selector(select));
-      dff counter[28];
+      test_rig testRig(.alu(alu), .test(test), .reset(reset), .selector(select));
+      
     }
   }
   
@@ -71,8 +72,10 @@ module mojo_top (
         a = io_dip[0];
         b = io_dip[1];
         alufn = io_dip[2][5:0];
+        cin = io_dip[2][7];
         alu = alu8test.alu;
         test = alu8test.test;
+        test[3] = alu8test.cout;
         seg.values = {test, 4h0, alu[7:4], alu[3:0]};
         
         io_led[0] = a;

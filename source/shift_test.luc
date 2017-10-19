@@ -5,10 +5,12 @@ module shift_test (
     output testA[8], // test outputs to alu module
     output testB[8],
     output alufn[6],
+    output cin,
+    input cout,
     input reset // reset fsm to first state
   ) {
 
-  fsm state(.clk(clk), .rst(rst)) = {SHLTEST0, SHLTEST1, SHRTEST0, SHRTEST1, SRATEST0, SRATEST1, END}; 
+  fsm state(.clk(clk), .rst(rst)) = {SHLTEST0, SHLTEST1, SHRTEST0, SHRTEST1, SRATEST0, SRATEST1, RLTEST0, RRTEST0, RLCTEST0, RRCTEST0, END}; 
   dff counter[28](.clk(clk), .rst(rst));
   sig getNextState;
   sig resetFSM;
@@ -18,6 +20,7 @@ module shift_test (
     testA = 0;
     testB = 0;
     alufn = 0;
+    cin = 0;
     resetFSM = reset; 
     
     counter.d = counter.q + 1;

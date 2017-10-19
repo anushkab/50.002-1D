@@ -50,7 +50,9 @@ module cmp_test (
         if (getNextState == 1) {
           if (alu == 8h00) {
             state.d = state.CMPLTTEST0;
-          }  
+          } else if (resetFSM == 1) {
+            state.d = state.CMPEQTEST0;
+          } 
         } else {
           state.d = state.CMPEQTEST1;
         }
@@ -63,7 +65,9 @@ module cmp_test (
         if (getNextState == 1) {
           if (alu == 8h00) {
             state.d = state.CMPLTTEST1;
-          }  
+          } else if (resetFSM == 1) {
+            state.d = state.CMPEQTEST0;
+          } 
         } else {
           state.d = state.CMPLTTEST0;
         }
@@ -76,6 +80,8 @@ module cmp_test (
         if (getNextState == 1) {
           if (alu == 8h01) {
             state.d = state.CMPLTTEST2;
+          } else if (resetFSM == 1) {
+            state.d = state.CMPEQTEST0;
           }  
         } else {
           state.d = state.CMPLTTEST1;
@@ -89,7 +95,9 @@ module cmp_test (
         if (getNextState == 1) {
           if (alu == 8h00) {
             state.d = state.CMPLTTEST3;
-          }  
+          } else if (resetFSM == 1) {
+            state.d = state.CMPEQTEST0;
+          } 
         } else {
           state.d = state.CMPLTTEST2;
         }
@@ -102,6 +110,8 @@ module cmp_test (
         if (getNextState == 1) {
           if (alu == 8h00) {
             state.d = state.CMPLETEST0;
+          } else if (resetFSM == 1) {
+            state.d = state.CMPEQTEST0;
           }  
         } else {
           state.d = state.CMPLTTEST3;
@@ -110,12 +120,14 @@ module cmp_test (
       state.CMPLETEST0:
         testA = 8haa;
         testB = 8haa;
-        alufn = 6h35;
+        alufn = 6h37;
         
         if (getNextState == 1) {
           if (alu == 8h01) {
             state.d = state.CMPLETEST1;
-          }  
+          } else if (resetFSM == 1) {
+            state.d = state.CMPEQTEST0;
+          } 
         } else {
           state.d = state.CMPLETEST0;
         }
@@ -123,12 +135,14 @@ module cmp_test (
       state.CMPLETEST1:
         testA = 8haa;
         testB = 8h55;
-        alufn = 6h35;
+        alufn = 6h37;
         
         if (getNextState == 1) {
           if (alu == 8h01) {
             state.d = state.CMPLETEST2;
-          }  
+          } else if (resetFSM == 1) {
+            state.d = state.CMPEQTEST0;
+          } 
         } else {
           state.d = state.CMPLETEST1;
         }
@@ -136,12 +150,14 @@ module cmp_test (
       state.CMPLETEST2:
         testA = 8h55;
         testB = 8haa;
-        alufn = 6h35;
+        alufn = 6h37;
         
         if (getNextState == 1) {
           if (alu == 8h00) {
             state.d = state.CMPLETEST3;
-          }  
+          } else if (resetFSM == 1) {
+            state.d = state.CMPEQTEST0;
+          } 
         } else {
           state.d = state.CMPLETEST2;
         }
@@ -149,12 +165,14 @@ module cmp_test (
       state.CMPLETEST3:
         testA = 8hFF;
         testB = 8h80;
-        alufn = 6h35;
+        alufn = 6h37;
         
         if (getNextState == 1) {
           if (alu == 8h00) {
             state.d = state.END;
-          }  
+          } else if (resetFSM == 1) {
+            state.d = state.CMPEQTEST0;
+          } 
         } else {
           state.d = state.CMPLETEST3;
         }

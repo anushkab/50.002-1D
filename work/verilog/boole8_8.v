@@ -21,23 +21,47 @@ module boole8_8 (
         boole[(i)*1+0-:1] = a[(i)*1+0-:1] & b[(i)*1+0-:1];
       end
     end else begin
-      if (alufn == 4'he) begin
+      if (alufn == 4'h7) begin
         for (i = 1'h0; i < 4'h8; i = i + 1) begin
-          boole[(i)*1+0-:1] = a[(i)*1+0-:1] | b[(i)*1+0-:1];
+          boole[(i)*1+0-:1] = ~(a[(i)*1+0-:1] & b[(i)*1+0-:1]);
         end
       end else begin
-        if (alufn == 4'h6) begin
+        if (alufn == 4'he) begin
           for (i = 1'h0; i < 4'h8; i = i + 1) begin
-            boole[(i)*1+0-:1] = a[(i)*1+0-:1] ^ b[(i)*1+0-:1];
+            boole[(i)*1+0-:1] = a[(i)*1+0-:1] | b[(i)*1+0-:1];
           end
         end else begin
-          if (alufn == 4'ha) begin
+          if (alufn == 4'h1) begin
             for (i = 1'h0; i < 4'h8; i = i + 1) begin
-              boole[(i)*1+0-:1] = a[(i)*1+0-:1];
+              boole[(i)*1+0-:1] = ~(a[(i)*1+0-:1] | b[(i)*1+0-:1]);
             end
           end else begin
-            for (i = 1'h0; i < 4'h8; i = i + 1) begin
-              boole[(i)*1+0-:1] = 1'h0;
+            if (alufn == 4'h6) begin
+              for (i = 1'h0; i < 4'h8; i = i + 1) begin
+                boole[(i)*1+0-:1] = a[(i)*1+0-:1] ^ b[(i)*1+0-:1];
+              end
+            end else begin
+              if (alufn == 4'h9) begin
+                for (i = 1'h0; i < 4'h8; i = i + 1) begin
+                  boole[(i)*1+0-:1] = (~a[(i)*1+0-:1] ^ b[(i)*1+0-:1]);
+                end
+              end else begin
+                if (alufn == 4'ha) begin
+                  for (i = 1'h0; i < 4'h8; i = i + 1) begin
+                    boole[(i)*1+0-:1] = a[(i)*1+0-:1];
+                  end
+                end else begin
+                  if (alufn == 4'h5) begin
+                    for (i = 1'h0; i < 4'h8; i = i + 1) begin
+                      boole[(i)*1+0-:1] = b[(i)*1+0-:1];
+                    end
+                  end else begin
+                    for (i = 1'h0; i < 4'h8; i = i + 1) begin
+                      boole[(i)*1+0-:1] = 1'h0;
+                    end
+                  end
+                end
+              end
             end
           end
         end
