@@ -7,13 +7,10 @@ module shift_with_rotate (
     output cout
   ) {
 
-  //sig t[8];
   sig c[8];
   sig xb[3];
-  sig xa[8];
-  //sig shift[8];
   
-  shift8 shifter(.a(xa), .b(xb), .alufn(alufn[1:0]));
+  shift8 shifter(.a(a), .b(xb), .alufn(alufn[1:0]));
   adder adder(.a(shifter.shift), .b(c), .alufn(0));
   // rotate left alufn 100100
   // rotate right alufn 100101
@@ -37,17 +34,14 @@ module shift_with_rotate (
       c[7] = a[0];
       c[6:0] = 0;
     } else if (alufn == 4hc) {
-      xa[7:1] = a[6:0];
-      xa[0] = cin;
       cout = a[7];
-      c = 0;
+      c[0] = cin;
+      c[7:1] = 0;
     } else if (alufn == 4hd) {
-      xa = a;
       c[7] = cin;
       c[6:0] = 0;
       cout = a[0];
     } else {
-      xa = a;
       c = 0;
       cout = 0;
     }

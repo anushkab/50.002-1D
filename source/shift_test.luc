@@ -10,7 +10,7 @@ module shift_test (
     input reset // reset fsm to first state
   ) {
 
-  fsm state(.clk(clk), .rst(rst)) = {SHLTEST0, SHLTEST1, SHRTEST0, SHRTEST1, SRATEST0, SRATEST1, RLTEST0, RRTEST0, RLCTEST0, RRCTEST0, END}; 
+  fsm state(.clk(clk), .rst(rst)) = {SHLTEST0, SHLTEST1, SHRTEST0, SHRTEST1, SRATEST0, SRATEST1, RLTEST0, RRTEST0, RLCTEST0, RLCTEST1, RRCTEST0, RRCTEST1, END}; 
   dff counter[28](.clk(clk), .rst(rst));
   sig getNextState;
   sig resetFSM;
@@ -112,12 +112,106 @@ module shift_test (
         
         if (getNextState == 1) {
           if (alu == 8h00) {
-            state.d = state.END;
+            state.d = state.RLTEST0;
           } else if (resetFSM == 1) {
             state.d = state.SHLTEST0;
           } 
         } else {
           state.d = state.SRATEST1;
+        }
+        
+      state.RLTEST0:
+        testA = 8h81;
+        testB = 0;
+        alufn = 6h24;  
+      
+        if (getNextState == 1) {
+          if (alu == 8h03) {
+            state.d = state.RRTEST0;
+          } else if (resetFSM == 1) {
+            state.d = state.SHLTEST0;
+          } 
+        } else {
+          state.d = state.RLTEST0;
+        }
+        
+      state.RRTEST0:
+        testA = 8h81;
+        testB = 0;
+        alufn = 6h25;  
+      
+        if (getNextState == 1) {
+          if (alu == 8hc0) {
+            state.d = state.RLCTEST0;
+          } else if (resetFSM == 1) {
+            state.d = state.SHLTEST0;
+          } 
+        } else {
+          state.d = state.RRTEST0;
+        }
+        
+      state.RLCTEST0:
+        testA = 8h81;
+        testB = 0;
+        alufn = 6h2c;
+        cin = 0;  
+      
+        if (getNextState == 1) {
+          if (alu == 8h02 && cout == 1) {
+            state.d = state.RLCTEST1;
+          } else if (resetFSM == 1) {
+            state.d = state.SHLTEST0;
+          } 
+        } else {
+          state.d = state.RLCTEST0;
+        }
+        
+      state.RLCTEST1:
+        testA = 8h81;
+        testB = 0;
+        alufn = 6h2c;
+        cin = 1;  
+      
+        if (getNextState == 1) {
+          if (alu == 8h03 && cout == 1) {
+            state.d = state.RRCTEST0;
+          } else if (resetFSM == 1) {
+            state.d = state.SHLTEST0;
+          } 
+        } else {
+          state.d = state.RLCTEST1;
+        }
+        
+      state.RRCTEST0:
+        testA = 8h81;
+        testB = 0;
+        alufn = 6h2d;
+        cin = 1;  
+      
+        if (getNextState == 1) {
+          if (alu == 8h40 && cout == 1) {
+            state.d = state.RRCTEST1;
+          } else if (resetFSM == 1) {
+            state.d = state.SHLTEST0;
+          } 
+        } else {
+          state.d = state.RRCTEST0;
+        }
+        
+      state.RRCTEST1:
+        testA = 8h81;
+        testB = 0;
+        alufn = 6h2d;
+        cin = 1;  
+      
+        if (getNextState == 1) {
+          if (alu == 8hc0 && cout == 1) {
+            state.d = state.END;
+          } else if (resetFSM == 1) {
+            state.d = state.SHLTEST0;
+          } 
+        } else {
+          state.d = state.RRCTEST1;
         }
         
       state.END:
