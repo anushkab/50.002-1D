@@ -15,13 +15,31 @@ module test_rig (
 //  dff counter[28](.clk(clk), .rst(rst));
 
   sig select[3];
+  sig pp[8];
   
-  adder_test adderTest(.clk(clk), .rst(rst), .alu(alu), .test(test), .reset(reset));
-  mul_test mulTest(.clk(clk), .rst(rst), .alu(alu), .test(test), .reset(reset));
-  boole_test booleTest(.clk(clk), .rst(rst), .alu(alu), .test(test), .reset(reset));
-  shift_test shiftTest(.clk(clk), .rst(rst), .alu(alu), .reset(reset));
-  cmp_test cmpTest(.clk(clk), .rst(rst), .alu(alu), .reset(reset));
+  .clk(clk) {
   
+    pipeline pp0(.in(alu[0]));
+    pipeline pp1(.in(alu[1]));
+    pipeline pp2(.in(alu[2]));
+    pipeline pp3(.in(alu[3]));
+    pipeline pp4(.in(alu[4]));
+    pipeline pp5(.in(alu[5]));
+    pipeline pp6(.in(alu[6]));
+    pipeline pp7(.in(alu[7]));
+      
+    .rst(rst) {
+      .alu(pp) {
+        .reset(reset) {
+          adder_test adderTest(.test(test));
+          mul_test mulTest(.test(test));
+          boole_test booleTest(.test(test));
+          shift_test shiftTest;
+          cmp_test cmpTest;
+        } 
+      }
+    }
+  }
   
   
   always {
@@ -29,6 +47,15 @@ module test_rig (
     testB = 0;
     alufn = 0;
     select = selector;
+    
+    pp[0] = pp0.out;
+    pp[1] = pp1.out;
+    pp[2] = pp2.out;
+    pp[3] = pp3.out;
+    pp[4] = pp4.out;
+    pp[5] = pp5.out;
+    pp[6] = pp6.out;
+    pp[7] = pp7.out;
     
     if (select == 3h0) {
       testA = adderTest.testA;
