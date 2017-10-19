@@ -9,23 +9,56 @@ module boole8 (
   
   always {
     
+    // and
     if (alufn == 4b1000) {
       for (i = 0; i < 8; i++) {
         boole[i] = a[i] & b[i];
       }
-    } else if (alufn == 4b1110) {
+    } 
+    // nand
+    else if (alufn == 4b0111) {
+      for (i = 0; i < 8; i++) {
+        boole[i] = ~(a[i] & b[i]);
+      }
+    }
+    // or
+    else if (alufn == 4b1110) {
       for (i = 0; i < 8; i++) {
         boole[i] = a[i] | b[i];
       }
-    } else if (alufn == 4b0110) {
+    } 
+    // nor
+    else if (alufn == 4b0001) {
+      for (i = 0; i < 8; i++) {
+        boole[i] = ~(a[i] | b[i]);
+      }
+    }   
+    // xor
+    else if (alufn == 4b0110) {
       for (i = 0; i < 8; i++) {
         boole[i] = a[i] ^ b[i];
       }
-    } else if (alufn == 4b1010) {
+    } 
+    // xnor
+    else if (alufn == 4b1001) {
+      for (i = 0; i < 8; i++) {
+        boole[i] = (~a[i] ^ b[i]);
+      }
+    }
+    // A  
+    else if (alufn == 4b1010) {
       for (i = 0; i < 8; i++) {
         boole[i] = a[i];
       }
-    } else {
+    }    
+    // B 
+    else if (alufn == 4b0101) {
+      for (i = 0; i < 8; i++) {
+        boole[i] = b[i];
+      }
+    } 
+    // default
+    else {
       for (i = 0; i < 8; i++) {
         boole[i] = 0;
       }
