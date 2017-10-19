@@ -220,7 +220,7 @@ module shift_test_23 (
         testA = 8'h81;
         testB = 1'h0;
         alufn = 6'h2d;
-        cin = 1'h1;
+        cin = 1'h0;
         if (getNextState == 1'h1) begin
           if (alu == 8'h40 && cout == 1'h1) begin
             M_state_d = RRCTEST1_state;
@@ -265,18 +265,18 @@ module shift_test_23 (
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
-      M_counter_q <= 1'h0;
+      M_state_q <= 1'h0;
     end else begin
-      M_counter_q <= M_counter_d;
+      M_state_q <= M_state_d;
     end
   end
   
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
-      M_state_q <= 1'h0;
+      M_counter_q <= 1'h0;
     end else begin
-      M_state_q <= M_state_d;
+      M_counter_q <= M_counter_d;
     end
   end
   

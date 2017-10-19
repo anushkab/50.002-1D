@@ -348,8 +348,8 @@ Unit <boole_test_22> synthesized.
 
 Synthesizing Unit <shift_test_23>.
     Related source file is "D:/Daniel/School/Pillar Year 1/50.002 - Computation Structures/1D Project/alu8/work/planAhead/alu8/alu8.srcs/sources_1/imports/verilog/shift_test_23.v".
-    Found 4-bit register for signal <M_state_q>.
     Found 28-bit register for signal <M_counter_q>.
+    Found 4-bit register for signal <M_state_q>.
     Found finite state machine <FSM_3> for signal <M_state_q>.
     -----------------------------------------------------------------------
     | States             | 13                                             |
@@ -653,7 +653,6 @@ Building and optimizing final netlist ...
 Found area constraint ratio of 100 (+ 0) on block mojo_top_0, actual ratio is 12.
 FlipFlop testRig/shiftTest/M_state_q_FSM_FFd1 has been replicated 3 time(s)
 FlipFlop testRig/shiftTest/M_state_q_FSM_FFd2 has been replicated 2 time(s)
-FlipFlop testRig/shiftTest/M_state_q_FSM_FFd3 has been replicated 1 time(s)
 FlipFlop testRig/shiftTest/M_state_q_FSM_FFd4 has been replicated 2 time(s)
 
 Final Macro Processing ...
@@ -674,8 +673,8 @@ Unit <mojo_top_0> processed.
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 90
- Flip-Flops                                            : 90
+# Registers                                            : 89
+ Flip-Flops                                            : 89
 # Shift Registers                                      : 8
  27-bit shift register                                 : 8
 
@@ -701,7 +700,7 @@ Clock Information:
 ------------------------------------------------------------------------------------------+-----------------------------+-------+
 Clock Signal                                                                              | Clock buffer(FF name)       | Load  |
 ------------------------------------------------------------------------------------------+-----------------------------+-------+
-clk                                                                                       | BUFGP                       | 106   |
+clk                                                                                       | BUFGP                       | 105   |
 M_mode_selector_q                                                                         | NONE(select_2)              | 3     |
 alu8test/shift/alufn[3]_GND_9_o_equal_3_o(alu8test/shift/alufn[3]_GND_9_o_equal_3_o<3>1:O)| NONE(*)(alu8test/shift/cout)| 1     |
 ------------------------------------------------------------------------------------------+-----------------------------+-------+

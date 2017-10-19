@@ -186,7 +186,7 @@ module shift_test (
         testA = 8h81;
         testB = 0;
         alufn = 6h2d;
-        cin = 1;  
+        cin = 0;  
       
         if (getNextState == 1) {
           if (alu == 8h40 && cout == 1) {
