@@ -1,7 +1,7 @@
 module adder_test (
     input clk,  // clock
     input rst,  // reset
-    input test,
+    input test[3],
     input alu[8], // input from alu module
     output testA[8], // test outputs to alu module
     output testB[8],

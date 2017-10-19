@@ -13,6 +13,8 @@
     <src>mul.luc</src>
     <src>test_rig.luc</src>
     <src>seven_seg.luc</src>
+    <src>cmp_test.luc</src>
+    <src>shift_test.luc</src>
     <src>adder.luc</src>
     <src>adder_test.luc</src>
     <src>full_adder.luc</src>
