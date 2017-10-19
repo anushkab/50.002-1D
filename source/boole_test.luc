@@ -31,12 +31,12 @@ module boole_test (
     case (state.q) {
     
       state.ANDTEST0:
-        testA = 8h0F;
-        testB = 8h0F;
+        testA = 8h0f;
+        testB = 8h0f;
         alufn = 6h18;
       
         if (getNextState == 1) {
-          if (alu == 8h0F && test == 3h0) {
+          if (alu == 8h0f && test == 3h0) {
             state.d = state.ANDTEST1;
           } 
         } else {
@@ -44,12 +44,12 @@ module boole_test (
         }
         
       state.ANDTEST1:
-        testA = 8hFF;
-        testB = 8hAA;
+        testA = 8hff;
+        testB = 8haa;
         alufn = 6h18;
       
         if (getNextState == 1) {
-          if (alu == 8hAA && test == 3h1) {
+          if (alu == 8haa && test == 3h1) {
             state.d = state.ORTEST0;
           } else if (resetFSM == 1) {
             state.d = state.ANDTEST0;
@@ -59,12 +59,12 @@ module boole_test (
         }
         
       state.ORTEST0:
-        testA = 8h0F;
-        testB = 8hF0;
-        alufn = 6h1E;
+        testA = 8h0f;
+        testB = 8hf0;
+        alufn = 6h1e;
       
         if (getNextState == 1) {
-          if (alu == 8hFF && test == 3h1) {
+          if (alu == 8hff && test == 3h1) {
             state.d = state.ORTEST1;
           } else if (resetFSM == 1) {
             state.d = state.ANDTEST0;
@@ -75,11 +75,11 @@ module boole_test (
         
       state.ORTEST1:
         testA = 8h33;
-        testB = 8h5A;
-        alufn = 6h1E;
+        testB = 8h5a;
+        alufn = 6h1e;
       
         if (getNextState == 1) {
-          if (alu == 8h7B && test == 3h3) {
+          if (alu == 8h7b && test == 3h3) {
             state.d = state.XORTEST0;
           } else if (resetFSM == 1) {
             state.d = state.ANDTEST0;
@@ -89,8 +89,8 @@ module boole_test (
         }
         
       state.XORTEST0:
-        testA = 8h0F;
-        testB = 8h0F;
+        testA = 8h0f;
+        testB = 8h0f;
         alufn = 6h16;
       
         if (getNextState == 1) {
@@ -105,7 +105,7 @@ module boole_test (
         
       state.XORTEST1:
         testA = 8h33;
-        testB = 8h5A;
+        testB = 8h5a;
         alufn = 6h16;
       
         if (getNextState == 1) {
@@ -119,12 +119,12 @@ module boole_test (
         }
         
       state.ATEST0:
-        testA = 8h0F;
-        testB = 8hCC;
-        alufn = 6h1A;
+        testA = 8h0f;
+        testB = 8hcc;
+        alufn = 6h1a;
       
         if (getNextState == 1) {
-          if (alu == 8h0F && test == 3h1) {
+          if (alu == 8h0f && test == 3h1) {
             state.d = state.ATEST1;
           } else if (resetFSM == 1) {
             state.d = state.ANDTEST0;
@@ -135,11 +135,11 @@ module boole_test (
         
       state.ATEST1:
         testA = 8h33;
-        testB = 8hF0;
-        alufn = 6h1A;
+        testB = 8hf0;
+        alufn = 6h1a;
       
         if (getNextState == 1) {
-          if (alu == 8hCC && test == 3h0) {
+          if (alu == 8hcc && test == 3h0) {
             state.d = state.END;
           } else if (resetFSM == 1) {
             state.d = state.ANDTEST0;

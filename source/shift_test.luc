@@ -35,7 +35,7 @@ module shift_test (
         alufn = 6h20;
         
         if (getNextState == 1) {
-          if (alu == 8hA8) {
+          if (alu == 8ha8) {
             state.d = state.SHLTEST1;
           }  
         } else {
@@ -58,7 +58,7 @@ module shift_test (
         }
         
        state.SHRTEST0:
-        testA = 8hAA;
+        testA = 8haa;
         testB = 8h07;
         alufn = 6h21;
         
@@ -93,7 +93,7 @@ module shift_test (
         alufn = 6h23;
         
         if (getNextState == 1) {
-          if (alu == 8hEA) {
+          if (alu == 8hea) {
             state.d = state.SRATEST1;
           } else if (resetFSM == 1) {
             state.d = state.SHLTEST0;
