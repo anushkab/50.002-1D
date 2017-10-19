@@ -23,7 +23,7 @@ module arith8_6 (
   reg [8-1:0] M_adder8_a;
   reg [8-1:0] M_adder8_b;
   reg [1-1:0] M_adder8_alufn;
-  adder_18 adder8 (
+  adder_26 adder8 (
     .a(M_adder8_a),
     .b(M_adder8_b),
     .alufn(M_adder8_alufn),
@@ -36,7 +36,7 @@ module arith8_6 (
   wire [8-1:0] M_mul8_p;
   reg [8-1:0] M_mul8_a;
   reg [8-1:0] M_mul8_b;
-  mul_19 mul8 (
+  mul_27 mul8 (
     .a(M_mul8_a),
     .b(M_mul8_b),
     .p(M_mul8_p)
