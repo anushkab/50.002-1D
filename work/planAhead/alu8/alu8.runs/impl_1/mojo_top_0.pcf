@@ -1,5 +1,5 @@
 //! **************************************************************************
-// Written by: Map P.20131013 on Fri Oct 20 01:34:20 2017
+// Written by: Map P.20131013 on Fri Oct 20 01:49:06 2017
 //! **************************************************************************
 
 SCHEMATIC START;
@@ -122,7 +122,6 @@ TIMEGRP clk = BEL "M_mode_selector_q" BEL "clk_BUFGP/BUFG" BEL
         "testRig/shiftTest/M_state_q_FSM_FFd1_1" BEL
         "testRig/shiftTest/M_state_q_FSM_FFd4_1" BEL
         "testRig/shiftTest/M_state_q_FSM_FFd2_1" BEL
-        "testRig/shiftTest/M_state_q_FSM_FFd3_1" BEL
         "testRig/shiftTest/M_state_q_FSM_FFd1_2" BEL
         "testRig/shiftTest/M_state_q_FSM_FFd2_2" BEL
         "testRig/shiftTest/M_state_q_FSM_FFd1_3" BEL

@@ -3,7 +3,7 @@ Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 --> 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.53 secs
+Total CPU time to Xst completion: 0.08 secs
  
 --> Reading design: mojo_top_0.prj
 
@@ -394,8 +394,8 @@ Unit <boole_test_22> synthesized.
 
 Synthesizing Unit <shift_test_23>.
     Related source file is "D:/Daniel/School/Pillar Year 1/50.002 - Computation Structures/1D Project/alu8/work/planAhead/alu8/alu8.srcs/sources_1/imports/verilog/shift_test_23.v".
-    Found 4-bit register for signal <M_state_q>.
     Found 28-bit register for signal <M_counter_q>.
+    Found 4-bit register for signal <M_state_q>.
     Found finite state machine <FSM_3> for signal <M_state_q>.
     -----------------------------------------------------------------------
     | States             | 13                                             |
@@ -699,7 +699,6 @@ Building and optimizing final netlist ...
 Found area constraint ratio of 100 (+ 0) on block mojo_top_0, actual ratio is 12.
 FlipFlop testRig/shiftTest/M_state_q_FSM_FFd1 has been replicated 3 time(s)
 FlipFlop testRig/shiftTest/M_state_q_FSM_FFd2 has been replicated 2 time(s)
-FlipFlop testRig/shiftTest/M_state_q_FSM_FFd3 has been replicated 1 time(s)
 FlipFlop testRig/shiftTest/M_state_q_FSM_FFd4 has been replicated 2 time(s)
 
 Final Macro Processing ...
@@ -720,8 +719,8 @@ Unit <mojo_top_0> processed.
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 90
- Flip-Flops                                            : 90
+# Registers                                            : 89
+ Flip-Flops                                            : 89
 # Shift Registers                                      : 8
  27-bit shift register                                 : 8
 
@@ -746,23 +745,23 @@ Top Level Output File Name         : mojo_top_0.ngc
 
 Primitive and Black Box Usage:
 ------------------------------
-# BELS                             : 748
+# BELS                             : 747
 #      GND                         : 18
 #      INV                         : 4
 #      LUT1                        : 44
-#      LUT2                        : 28
-#      LUT3                        : 45
-#      LUT4                        : 56
+#      LUT2                        : 29
+#      LUT3                        : 44
+#      LUT4                        : 55
 #      LUT5                        : 110
 #      LUT6                        : 304
 #      MUXCY                       : 69
 #      MUXF7                       : 27
 #      VCC                         : 15
 #      XORCY                       : 28
-# FlipFlops/Latches                : 102
+# FlipFlops/Latches                : 101
 #      FD                          : 8
 #      FDE                         : 8
-#      FDR                         : 75
+#      FDR                         : 74
 #      FDS                         : 7
 #      LD                          : 3
 #      LDE_1                       : 1
@@ -782,17 +781,17 @@ Selected Device : 6slx9tqg144-2
 
 
 Slice Logic Utilization: 
- Number of Slice Registers:             102  out of  11440     0%  
- Number of Slice LUTs:                  599  out of   5720    10%  
-    Number used as Logic:               591  out of   5720    10%  
+ Number of Slice Registers:             101  out of  11440     0%  
+ Number of Slice LUTs:                  598  out of   5720    10%  
+    Number used as Logic:               590  out of   5720    10%  
     Number used as Memory:                8  out of   1440     0%  
        Number used as SRL:                8
 
 Slice Logic Distribution: 
- Number of LUT Flip Flop pairs used:    648
-   Number with an unused Flip Flop:     546  out of    648    84%  
-   Number with an unused LUT:            49  out of    648     7%  
-   Number of fully used LUT-FF pairs:    53  out of    648     8%  
+ Number of LUT Flip Flop pairs used:    646
+   Number with an unused Flip Flop:     545  out of    646    84%  
+   Number with an unused LUT:            48  out of    646     7%  
+   Number of fully used LUT-FF pairs:    53  out of    646     8%  
    Number of unique control sets:        27
 
 IO Utilization: 
@@ -823,7 +822,7 @@ Clock Information:
 ------------------------------------------------------------------------------------------+-----------------------------+-------+
 Clock Signal                                                                              | Clock buffer(FF name)       | Load  |
 ------------------------------------------------------------------------------------------+-----------------------------+-------+
-clk                                                                                       | BUFGP                       | 106   |
+clk                                                                                       | BUFGP                       | 105   |
 M_mode_selector_q                                                                         | NONE(select_2)              | 3     |
 alu8test/shift/alufn[3]_GND_9_o_equal_3_o(alu8test/shift/alufn[3]_GND_9_o_equal_3_o<3>1:O)| NONE(*)(alu8test/shift/cout)| 1     |
 ------------------------------------------------------------------------------------------+-----------------------------+-------+
@@ -852,7 +851,7 @@ All values displayed in nanoseconds (ns)
 =========================================================================
 Timing constraint: Default period analysis for Clock 'clk'
   Clock period: 12.184ns (frequency: 82.076MHz)
-  Total number of paths / destination ports: 200760 / 175
+  Total number of paths / destination ports: 200639 / 173
 -------------------------------------------------------------------------
 Delay:               12.184ns (Levels of Logic = 18)
   Source:            testRig/cmpTest/M_state_q_FSM_FFd6 (FF)
@@ -897,7 +896,7 @@ Delay:               12.184ns (Levels of Logic = 18)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'clk'
-  Total number of paths / destination ports: 13985 / 62
+  Total number of paths / destination ports: 13978 / 61
 -------------------------------------------------------------------------
 Offset:              11.212ns (Levels of Logic = 17)
   Source:            io_dip<8> (PAD)
@@ -961,7 +960,7 @@ Offset:              2.545ns (Levels of Logic = 1)
 Timing constraint: Default OFFSET IN BEFORE for Clock 'alu8test/shift/alufn[3]_GND_9_o_equal_3_o'
   Total number of paths / destination ports: 10 / 2
 -------------------------------------------------------------------------
-Offset:              6.046ns (Levels of Logic = 4)
+Offset:              6.038ns (Levels of Logic = 4)
   Source:            io_dip<16> (PAD)
   Destination:       alu8test/shift/cout (LATCH)
   Destination Clock: alu8test/shift/alufn[3]_GND_9_o_equal_3_o rising
@@ -971,14 +970,14 @@ Offset:              6.046ns (Levels of Logic = 4)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      IBUF:I->O            16   1.328   1.290  io_dip_16_IBUF (io_dip_16_IBUF)
-     LUT3:I1->O           52   0.250   1.945  Mmux_alufn11 (alufn<0>)
+     LUT3:I1->O           51   0.250   1.937  Mmux_alufn11 (alufn<0>)
      begin scope: 'alu8test:alufn<0>'
      begin scope: 'alu8test/shift:alufn<0>'
      LUT6:I4->O            1   0.250   0.681  alufn[3]_GND_9_o_equal_4_o_inv1 (alufn[3]_GND_9_o_equal_4_o_inv)
      LDE_1:GE                  0.302          cout
     ----------------------------------------
-    Total                      6.046ns (2.130ns logic, 3.916ns route)
-                                       (35.2% logic, 64.8% route)
+    Total                      6.038ns (2.130ns logic, 3.908ns route)
+                                       (35.3% logic, 64.7% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'M_mode_selector_q'
@@ -1031,7 +1030,7 @@ Offset:              19.749ns (Levels of Logic = 22)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'clk'
-  Total number of paths / destination ports: 837075 / 35
+  Total number of paths / destination ports: 836963 / 35
 -------------------------------------------------------------------------
 Offset:              18.372ns (Levels of Logic = 20)
   Source:            testRig/cmpTest/M_state_q_FSM_FFd6 (FF)
@@ -1149,8 +1148,8 @@ Clock to Setup on destination clock alu8test/shift/alufn[3]_GND_9_o_equal_3_o
                  | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock     |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 -----------------+---------+---------+---------+---------+
-M_mode_selector_q|         |    8.885|         |         |
-clk              |    7.593|         |         |         |
+M_mode_selector_q|         |    8.758|         |         |
+clk              |    7.673|         |         |         |
 -----------------+---------+---------+---------+---------+
 
 Clock to Setup on destination clock clk
@@ -1166,12 +1165,12 @@ clk                                      |   12.184|         |         |        
 =========================================================================
 
 
-Total REAL time to Xst completion: 17.00 secs
-Total CPU time to Xst completion: 16.86 secs
+Total REAL time to Xst completion: 16.00 secs
+Total CPU time to Xst completion: 15.30 secs
  
 --> 
 
-Total memory usage is 265956 kilobytes
+Total memory usage is 250020 kilobytes
 
 Number of errors   :    0 (   0 filtered)
 Number of warnings :   23 (   0 filtered)
