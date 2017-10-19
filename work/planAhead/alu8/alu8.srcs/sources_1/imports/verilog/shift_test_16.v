@@ -42,7 +42,7 @@ module shift_test_16 (
     alufn = 1'h0;
     resetFSM = reset;
     M_counter_d = M_counter_q + 1'h1;
-    if (M_counter_q == 28'hfffffff) begin
+    if (M_counter_q >= 28'hffffff0) begin
       getNextState = 1'h1;
     end else begin
       getNextState = 1'h0;

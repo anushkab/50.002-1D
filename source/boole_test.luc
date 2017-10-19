@@ -21,7 +21,7 @@ module boole_test (
     resetFSM = reset;
     
     counter.d = counter.q + 1;
-    if (counter.q == 28hfffffff) {
+    if (counter.q >= 28hffffff0) {
       getNextState = 1;
     } else {
       getNextState = 0;

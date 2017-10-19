@@ -46,7 +46,7 @@ module adder_test_13 (
     alufn = 1'h0;
     resetFSM = reset;
     M_counter_d = M_counter_q + 1'h1;
-    if (M_counter_q == 28'hfffffff) begin
+    if (M_counter_q >= 28'hffffff0) begin
       getNextState = 1'h1;
     end else begin
       getNextState = 1'h0;
@@ -208,18 +208,18 @@ module adder_test_13 (
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
-      M_counter_q <= 1'h0;
+      M_state_q <= 1'h0;
     end else begin
-      M_counter_q <= M_counter_d;
+      M_state_q <= M_state_d;
     end
   end
   
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
-      M_state_q <= 1'h0;
+      M_counter_q <= 1'h0;
     end else begin
-      M_state_q <= M_state_d;
+      M_counter_q <= M_counter_d;
     end
   end
   
