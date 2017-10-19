@@ -2,72 +2,54 @@ module test_rig (
     input clk,  // clock
     input rst,  // reset
     input alu[8], // input from alu module
+    input test[3], // z, v, n input from alu module
+    input selector[3],
     output testA[8], // test outputs to alu module
     output testB[8],
-    output alufn[6]
+    output alufn[6],
+    input reset
   ) {
 
 
-fsm state(.clk(clk), .rst(rst)) = {ADDTEST0, ADDTEST1, ADDTEST2, ADDTEST3}; 
-dff counter[28](.clk(clk), .rst(rst));
-sig getNextState;
-sig a[8];
-sig b[8];
-sig alufunc[6];
+//  fsm state(.clk(clk), .rst(rst)) = {ADDERTEST, MULTEST, BOOLETEST, SHIFTTEST, CMPTEST}; 
+//  dff counter[28](.clk(clk), .rst(rst));
+
+  sig select[3];
+  
+  adder_test adderTest(.clk(clk), .rst(rst), .alu(alu), .test(test), .reset(reset));
+  mul_test mulTest(.clk(clk), .rst(rst), .alu(alu), .test(test), .reset(reset));
+  boole_test booleTest(.clk(clk), .rst(rst), .alu(alu), .test(test), .reset(reset));
+  shift_test shiftTest(.clk(clk), .rst(rst), .alu(alu), .reset(reset));
+  cmp_test cmpTest(.clk(clk), .rst(rst), .alu(alu), .reset(reset));
+  
+  
   
   always {
-    
     testA = 0;
     testB = 0;
-    alufn = 0;    
+    alufn = 0;
+    select = selector;
     
-    counter.d = counter.q + 1;
-    if (counter.q == 28hfffffff) {
-      getNextState = 1;
-    } else {
-      getNextState = 0;
-    }
-    
-    case (state.q) {
-    
-      state.ADDTEST0:
-        testA = 8b10101010;
-        testB = 8b01010101;
-        alufn = 6h00;
-      
-        if (getNextState == 1) {
-          if (alu == 8hff) {
-            state.d = state.ADDTEST1;
-          }  
-        } else {
-          state.d = state.ADDTEST0;
-        }
-        
-      state.ADDTEST1:
-        testA = 8b00000000;
-        testB = 8b10101010;
-        alufn = 6h00;
-      
-        if (getNextState == 1) {
-          if (alu == 8haa) {
-            state.d = state.ADDTEST2;
-          }  
-        } else {
-          state.d = state.ADDTEST1;
-        }  
-        
-      state.ADDTEST2:
-        testA = 8b00000000;
-        testB = 8b00000000;
-        alufn = 6h01;
-      
-        if (getNextState == 1) {
-          if (alu == 8haa) {
-            state.d = state.ADDTEST3;
-          }  
-        } else {
-          state.d = state.ADDTEST2;
-        } 
+    if (select == 3h0) {
+      testA = adderTest.testA;
+      testB = adderTest.testB;
+      alufn = adderTest.alufn;  
+    } else if (select == 3h1) {
+      testA = mulTest.testA;
+      testB = mulTest.testB;
+      alufn = mulTest.alufn;
+    } else if (select == 3h2) {
+      testA = booleTest.testA;
+      testB = booleTest.testB;
+      alufn = booleTest.alufn;
+    } else if (select == 3h3) {
+      testA = shiftTest.testA;
+      testB = shiftTest.testB;
+      alufn = shiftTest.alufn;
+    } else if (select == 3h4) {
+      testA = cmpTest.testA;
+      testB = cmpTest.testB;
+      alufn = cmpTest.alufn;
     }
   }
 }

@@ -22,6 +22,8 @@
     <ucf lib="true">mojo.ucf</ucf>
     <component>decoder.luc</component>
     <component>reset_conditioner.luc</component>
+    <component>pipeline.luc</component>
     <component>counter.luc</component>
+    <component>edge_detector.luc</component>
   </files>
 </project>

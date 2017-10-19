@@ -40,6 +40,12 @@ module mojo_top_0 (
   
   reg [3:0] test;
   
+  reg [2:0] xtest;
+  
+  reg [2:0] select;
+  
+  reg reset;
+  
   wire [8-1:0] M_alu8test_alu;
   wire [3-1:0] M_alu8test_test;
   alu8_1 alu8test (
@@ -57,6 +63,12 @@ module mojo_top_0 (
     .in(M_reset_cond_in),
     .out(M_reset_cond_out)
   );
+  wire [1-1:0] M_edge_detector_out;
+  edge_detector_3 edge_detector (
+    .clk(clk),
+    .in(clk),
+    .out(M_edge_detector_out)
+  );
   localparam MANUAL_mode_selector = 1'd0;
   localparam AUTO_mode_selector = 1'd1;
   
@@ -64,13 +76,28 @@ module mojo_top_0 (
   wire [7-1:0] M_seg_seg;
   wire [4-1:0] M_seg_sel;
   reg [16-1:0] M_seg_values;
-  multi_seven_seg_3 seg (
+  multi_seven_seg_4 seg (
     .clk(clk),
     .rst(rst),
     .values(M_seg_values),
     .seg(M_seg_seg),
     .sel(M_seg_sel)
   );
+  wire [8-1:0] M_testRig_testA;
+  wire [8-1:0] M_testRig_testB;
+  wire [6-1:0] M_testRig_alufn;
+  test_rig_5 testRig (
+    .clk(clk),
+    .rst(rst),
+    .alu(alu),
+    .test(xtest),
+    .reset(reset),
+    .selector(select),
+    .testA(M_testRig_testA),
+    .testB(M_testRig_testB),
+    .alufn(M_testRig_alufn)
+  );
+  reg [27:0] M_counter_d, M_counter_q = 1'h0;
   
   always @* begin
     M_mode_selector_d = M_mode_selector_q;
@@ -86,6 +113,7 @@ module mojo_top_0 (
     io_sel = ~M_seg_sel;
     M_seg_values = 16'hffff;
     mode = io_button[4+0-:1];
+    reset = io_button[0+0-:1];
     alu = 1'h0;
     io_led[16+7-:8] = alu;
     
@@ -107,10 +135,17 @@ module mojo_top_0 (
         end
       end
       AUTO_mode_selector: begin
-        a = 1'h0;
-        b = 1'h0;
-        alufn = 1'h0;
-        alu = 1'h0;
+        a = M_testRig_testA;
+        b = M_testRig_testB;
+        alufn = M_testRig_alufn;
+        alu = M_alu8test_test;
+        test = M_alu8test_test;
+        xtest = test[0+2-:3];
+        select = io_dip[16+0+2-:3];
+        io_led[0+7-:8] = a;
+        io_led[8+7-:8] = b;
+        io_led[16+0+5-:6] = alufn;
+        M_seg_values = {test, 4'h0, alu[4+3-:4], alu[0+3-:4]};
         if (mode == 1'h1) begin
           M_mode_selector_d = MANUAL_mode_selector;
         end else begin
@@ -122,8 +157,10 @@ module mojo_top_0 (
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
+      M_counter_q <= 1'h0;
       M_mode_selector_q <= 1'h0;
     end else begin
+      M_counter_q <= M_counter_d;
       M_mode_selector_q <= M_mode_selector_d;
     end
   end
