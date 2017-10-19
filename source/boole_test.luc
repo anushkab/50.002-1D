@@ -9,7 +9,7 @@ module boole_test (
     input reset // reset fsm to first state
   ) {
 
-  fsm state(.clk(clk), .rst(rst)) = {ANDTEST0, ANDTEST1, ORTEST0, ORTEST1, XORTEST0, XORTEST1, ATEST0, ATEST1, END}; 
+  fsm state(.clk(clk), .rst(rst)) = {ANDTEST0, ANDTEST1, NANDTEST0, ORTEST0, ORTEST1, NORTEST0, XORTEST0, XORTEST1, XNORTEST0, ATEST0, ATEST1, BTEST0, END}; 
   dff counter[28](.clk(clk), .rst(rst));
   sig getNextState;
   sig resetFSM;
@@ -45,17 +45,32 @@ module boole_test (
         
       state.ANDTEST1:
         testA = 8hff;
-        testB = 8haa;
+        testB = 8h5a;
         alufn = 6h18;
       
         if (getNextState == 1) {
-          if (alu == 8haa && test == 3h1) {
-            state.d = state.ORTEST0;
+          if (alu == 8h5a && test == 3h0) {
+            state.d = state.NANDTEST0;
           } else if (resetFSM == 1) {
             state.d = state.ANDTEST0;
           }
         } else {
           state.d = state.ANDTEST1;
+        }
+        
+      state.NANDTEST0:
+        testA = 8h33;
+        testB = 8hc3;
+        alufn = 6h17;
+      
+        if (getNextState == 1) {
+          if (alu == 8hfc && test == 3h0) {
+            state.d = state.ORTEST0;
+          } else if (resetFSM == 1) {
+            state.d = state.ANDTEST0;
+          }
+        } else {
+          state.d = state.NANDTEST0;
         }
         
       state.ORTEST0:
@@ -80,12 +95,27 @@ module boole_test (
       
         if (getNextState == 1) {
           if (alu == 8h7b && test == 3h3) {
-            state.d = state.XORTEST0;
+            state.d = state.NORTEST0;
           } else if (resetFSM == 1) {
             state.d = state.ANDTEST0;
           }
         } else {
           state.d = state.ORTEST1;
+        }
+        
+      state.NORTEST0:
+        testA = 8h33;
+        testB = 8h5a;
+        alufn = 6h11;
+      
+        if (getNextState == 1) {
+          if (alu == 8h0c && test == 3h0) {
+            state.d = state.XORTEST0;
+          } else if (resetFSM == 1) {
+            state.d = state.ANDTEST0;
+          }
+        } else {
+          state.d = state.NORTEST0;
         }
         
       state.XORTEST0:
@@ -110,12 +140,27 @@ module boole_test (
       
         if (getNextState == 1) {
           if (alu == 8h69 && test == 3h3) {
-            state.d = state.XORTEST1;
+            state.d = state.XNORTEST0;
           } else if (resetFSM == 1) {
             state.d = state.ANDTEST0;
           }
         } else {
-          state.d = state.XORTEST0;
+          state.d = state.XORTEST1;
+        }
+        
+      state.XNORTEST0:
+        testA = 8h33;
+        testB = 8h5a;
+        alufn = 6h16;
+      
+        if (getNextState == 1) {
+          if (alu == 8h0f && test == 3h0) {
+            state.d = state.ATEST0;
+          } else if (resetFSM == 1) {
+            state.d = state.ANDTEST0;
+          }
+        } else {
+          state.d = state.XNORTEST0;
         }
         
       state.ATEST0:
@@ -140,12 +185,27 @@ module boole_test (
       
         if (getNextState == 1) {
           if (alu == 8hcc && test == 3h0) {
-            state.d = state.END;
+            state.d = state.BTEST0;
           } else if (resetFSM == 1) {
             state.d = state.ANDTEST0;
           }
         } else {
           state.d = state.ATEST1;
+        } 
+        
+      state.BTEST0:
+        testA = 8h81;
+        testB = 8h18;
+        alufn = 6h15;
+      
+        if (getNextState == 1) {
+          if (alu == 8h18 && test == 3h2) {
+            state.d = state.END;
+          } else if (resetFSM == 1) {
+            state.d = state.ANDTEST0;
+          }
+        } else {
+          state.d = state.BTEST0;
         } 
         
       state.END:

@@ -16,14 +16,14 @@ module test_rig (
   
   .clk(clk) {
   
-    pipeline pp0(.in(alu[0]));
-    pipeline pp1(.in(alu[1]));
-    pipeline pp2(.in(alu[2]));
-    pipeline pp3(.in(alu[3]));
-    pipeline pp4(.in(alu[4]));
-    pipeline pp5(.in(alu[5]));
-    pipeline pp6(.in(alu[6]));
-    pipeline pp7(.in(alu[7]));
+    pipeline pp0(#DEPTH(28), .in(alu[0]));
+    pipeline pp1(#DEPTH(28), .in(alu[1]));
+    pipeline pp2(#DEPTH(28), .in(alu[2]));
+    pipeline pp3(#DEPTH(28), .in(alu[3]));
+    pipeline pp4(#DEPTH(28), .in(alu[4]));
+    pipeline pp5(#DEPTH(28), .in(alu[5]));
+    pipeline pp6(#DEPTH(28), .in(alu[6]));
+    pipeline pp7(#DEPTH(28), .in(alu[7]));
       
     .rst(rst) {
       .alu(pp) {

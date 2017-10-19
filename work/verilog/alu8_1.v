@@ -9,7 +9,9 @@ module alu8_1 (
     input [7:0] b,
     input [5:0] alufn,
     output reg [7:0] alu,
-    output reg [2:0] test
+    output reg [2:0] test,
+    input cin,
+    output reg cout
   );
   
   
@@ -21,7 +23,7 @@ module alu8_1 (
   reg [8-1:0] M_arith_a;
   reg [8-1:0] M_arith_b;
   reg [2-1:0] M_arith_alufn;
-  arith8_6 arith (
+  arith8_5 arith (
     .a(M_arith_a),
     .b(M_arith_b),
     .alufn(M_arith_alufn),
@@ -36,7 +38,7 @@ module alu8_1 (
   reg [1-1:0] M_compare_n;
   reg [1-1:0] M_compare_v;
   reg [2-1:0] M_compare_alufn;
-  compare8_7 compare (
+  compare8_6 compare (
     .z(M_compare_z),
     .n(M_compare_n),
     .v(M_compare_v),
@@ -48,22 +50,26 @@ module alu8_1 (
   reg [8-1:0] M_boole_a;
   reg [8-1:0] M_boole_b;
   reg [4-1:0] M_boole_alufn;
-  boole8_8 boole (
+  boole8_7 boole (
     .a(M_boole_a),
     .b(M_boole_b),
     .alufn(M_boole_alufn),
     .boole(M_boole_boole)
   );
   
-  wire [8-1:0] M_shift_shift;
+  wire [8-1:0] M_shift_out;
+  wire [1-1:0] M_shift_cout;
   reg [8-1:0] M_shift_a;
   reg [3-1:0] M_shift_b;
-  reg [2-1:0] M_shift_alufn;
-  shift8_9 shift (
+  reg [4-1:0] M_shift_alufn;
+  reg [1-1:0] M_shift_cin;
+  shift_with_rotate_8 shift (
     .a(M_shift_a),
     .b(M_shift_b),
     .alufn(M_shift_alufn),
-    .shift(M_shift_shift)
+    .cin(M_shift_cin),
+    .out(M_shift_out),
+    .cout(M_shift_cout)
   );
   
   reg [31:0] out;
@@ -79,8 +85,9 @@ module alu8_1 (
     out[8+7-:8] = M_boole_boole;
     M_shift_a = a;
     M_shift_b = b[0+2-:3];
-    M_shift_alufn = alufn[0+1-:2];
-    out[16+7-:8] = M_shift_shift;
+    M_shift_alufn = alufn[0+3-:4];
+    out[16+7-:8] = M_shift_out;
+    M_shift_cin = cin;
     M_compare_z = M_arith_z;
     M_compare_v = M_arith_v;
     M_compare_n = M_arith_n;
@@ -89,6 +96,7 @@ module alu8_1 (
     test[2+0-:1] = M_arith_z;
     test[1+0-:1] = M_arith_v;
     test[0+0-:1] = M_arith_n;
+    cout = 1'h0;
     if (alufn[4+1-:2] == 2'h0) begin
       alu = out[0+7-:8];
     end else begin
@@ -97,6 +105,7 @@ module alu8_1 (
       end else begin
         if (alufn[4+1-:2] == 2'h2) begin
           alu = out[16+7-:8];
+          cout = M_shift_cout;
         end else begin
           if (alufn[4+1-:2] == 2'h3) begin
             alu = out[24+7-:8];

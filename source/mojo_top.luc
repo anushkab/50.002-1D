@@ -25,7 +25,6 @@ module mojo_top (
   sig alu[8];
   sig mode;
   sig test[4];
-  sig xtest[3];
   sig select[3];
   sig reset;
   sig cin;
@@ -92,10 +91,11 @@ module mojo_top (
         a = testRig.testA;
         b = testRig.testB;
         alufn = testRig.alufn;
+        cin = testRig.cin;
         
         alu = alu8test.alu;
         test = alu8test.test;
-        xtest = test[2:0];
+        test[3] = alu8test.cout;
         select = io_dip[2][2:0];
         
         io_led[0] = a;
