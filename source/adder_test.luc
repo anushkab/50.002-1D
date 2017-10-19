@@ -1,6 +1,7 @@
 module adder_test (
     input clk,  // clock
     input rst,  // reset
+    input test,
     input alu[8], // input from alu module
     output testA[8], // test outputs to alu module
     output testB[8],
@@ -8,12 +9,9 @@ module adder_test (
   ) {
 
 
-fsm state(.clk(clk), .rst(rst)) = {ADDTEST0, ADDTEST1, ADDTEST2, ADDTEST3, END}; 
-dff counter[28](.clk(clk), .rst(rst));
-sig getNextState;
-sig a[8];
-sig b[8];
-sig alufunc[6];
+  fsm state(.clk(clk), .rst(rst)) = {ADDTEST0, ADDTEST1, ADDTEST2, ADDTEST3, ADDTEST4, SUBTEST0, SUBTEST1, SUBTEST2, SUBTEST3, END}; 
+  dff counter[28](.clk(clk), .rst(rst));
+  sig getNextState;
   
   always {
     
@@ -31,12 +29,12 @@ sig alufunc[6];
     case (state.q) {
     
       state.ADDTEST0:
-        testA = 8b10101010;
-        testB = 8b01010101;
+        testA = 8h01;
+        testB = 8h01;
         alufn = 6h00;
       
         if (getNextState == 1) {
-          if (alu == 8hff) {
+          if (alu == 8h02 && test == 3h0) {
             state.d = state.ADDTEST1;
           }  
         } else {
@@ -44,12 +42,12 @@ sig alufunc[6];
         }
         
       state.ADDTEST1:
-        testA = 8b00000000;
-        testB = 8b10101010;
+        testA = 8h7f;
+        testB = 8h7f;
         alufn = 6h00;
       
         if (getNextState == 1) {
-          if (alu == 8haa) {
+          if (alu == 8hfe && test == 3h3) {
             state.d = state.ADDTEST2;
           }  
         } else {
@@ -57,17 +55,100 @@ sig alufunc[6];
         }  
         
       state.ADDTEST2:
-        testA = 8b00000000;
-        testB = 8b00000000;
-        alufn = 6h01;
+        testA = 8h7f;
+        testB = 8h80;
+        alufn = 6h00;
       
         if (getNextState == 1) {
-          if (alu == 8haa) {
+          if (alu == 8hff && test == 3h1) {
             state.d = state.ADDTEST3;
           }  
         } else {
           state.d = state.ADDTEST2;
         } 
+        
+      state.ADDTEST3:
+        testA = 8h80;
+        testB = 8h7f;
+        alufn = 6h00;
+      
+        if (getNextState == 1) {
+          if (alu == 8hff && test == 3h1) {
+            state.d = state.ADDTEST4;
+          }  
+        } else {
+          state.d = state.ADDTEST3;
+        } 
+        
+      state.ADDTEST4:
+        testA = 8h80;
+        testB = 8h80;
+        alufn = 6h00;
+        
+        if (getNextState == 1) {
+          if (alu == 8h00 & test == 3h6) {
+            state.d = state.ADDTEST4;  
+          }
+        } else {
+          state.d = state.SUBTEST0;
+        }
+        
+      state.SUBTEST0:
+        testA = 8h01;
+        testB = 8h01;
+        alufn = 6h01;
+        
+        if (getNextState == 1) {
+          if (alu == 8h00 && test == 3h4) {
+            state.d = state.SUBTEST1;
+          }
+        } else {
+          state.d = state.SUBTEST0;
+        }
+        
+      state.SUBTEST1:
+        testA = 8h7f;
+        testB = 8h7f;
+        alufn = 6h01;
+        
+        if (getNextState == 1) {
+          if (alu == 8h00 && test == 3h4) {
+            state.d = state.SUBTEST2;
+          }
+        } else {
+          state.d = state.SUBTEST1;
+        }
+        
+      state.SUBTEST2:
+        testA = 8h7f;
+        testB = 8h80;
+        alufn = 6h01;
+        
+        if (getNextState == 1) {
+          if (alu == 8hff && test == 3h3) {
+            state.d = state.SUBTEST3;
+          }
+        } else {
+          state.d = state.SUBTEST2;
+        }
+        
+      state.SUBTEST3:
+        testA = 8h80;
+        testB = 8h7f;
+        alufn = 6h01;
+        
+        if (getNextState == 1) {
+          if (alu == 8h01 && test == 3h2) {
+            state.d = state.END;
+          }
+        } else {
+          state.d = state.END;
+        }
+        
+      state.END:
+        testA = 8h00;
+        testB = 8h00;
+        alufn = 6h00;
     }
   }
 }
