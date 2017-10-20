@@ -22,7 +22,9 @@ module mul_test_21 (
   localparam MULTEST1_state = 3'd1;
   localparam MULTEST2_state = 3'd2;
   localparam MULTEST3_state = 3'd3;
-  localparam END_state = 3'd4;
+  localparam DIVTEST0_state = 3'd4;
+  localparam DIVTEST1_state = 3'd5;
+  localparam END_state = 3'd6;
   
   reg [2:0] M_state_d, M_state_q = MULTEST0_state;
   
@@ -98,7 +100,7 @@ module mul_test_21 (
         alufn = 6'h02;
         if (getNextState == 1'h1) begin
           if (alu == 8'h02 && test == 3'h1) begin
-            M_state_d = END_state;
+            M_state_d = DIVTEST0_state;
           end else begin
             if (resetFSM == 1'h1) begin
               M_state_d = MULTEST0_state;
@@ -106,6 +108,38 @@ module mul_test_21 (
           end
         end else begin
           M_state_d = MULTEST3_state;
+        end
+      end
+      DIVTEST0_state: begin
+        testA = 8'h10;
+        testB = 8'h04;
+        alufn = 6'h03;
+        if (getNextState == 1'h1) begin
+          if (alu == 8'h04 && test == 3'h0) begin
+            M_state_d = DIVTEST1_state;
+          end else begin
+            if (resetFSM == 1'h1) begin
+              M_state_d = MULTEST0_state;
+            end
+          end
+        end else begin
+          M_state_d = DIVTEST0_state;
+        end
+      end
+      DIVTEST1_state: begin
+        testA = 8'h80;
+        testB = 8'h80;
+        alufn = 6'h03;
+        if (getNextState == 1'h1) begin
+          if (alu == 8'h01 && test == 3'h4) begin
+            M_state_d = END_state;
+          end else begin
+            if (resetFSM == 1'h1) begin
+              M_state_d = MULTEST0_state;
+            end
+          end
+        end else begin
+          M_state_d = DIVTEST0_state;
         end
       end
       END_state: begin

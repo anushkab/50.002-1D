@@ -25,7 +25,7 @@ module adder_25 (
   reg [1-1:0] M_fa0_a;
   reg [1-1:0] M_fa0_b;
   reg [1-1:0] M_fa0_cin;
-  full_adder_29 fa0 (
+  full_adder_30 fa0 (
     .a(M_fa0_a),
     .b(M_fa0_b),
     .cin(M_fa0_cin),
@@ -38,7 +38,7 @@ module adder_25 (
   reg [1-1:0] M_fa1_a;
   reg [1-1:0] M_fa1_b;
   reg [1-1:0] M_fa1_cin;
-  full_adder_29 fa1 (
+  full_adder_30 fa1 (
     .a(M_fa1_a),
     .b(M_fa1_b),
     .cin(M_fa1_cin),
@@ -51,7 +51,7 @@ module adder_25 (
   reg [1-1:0] M_fa2_a;
   reg [1-1:0] M_fa2_b;
   reg [1-1:0] M_fa2_cin;
-  full_adder_29 fa2 (
+  full_adder_30 fa2 (
     .a(M_fa2_a),
     .b(M_fa2_b),
     .cin(M_fa2_cin),
@@ -64,7 +64,7 @@ module adder_25 (
   reg [1-1:0] M_fa3_a;
   reg [1-1:0] M_fa3_b;
   reg [1-1:0] M_fa3_cin;
-  full_adder_29 fa3 (
+  full_adder_30 fa3 (
     .a(M_fa3_a),
     .b(M_fa3_b),
     .cin(M_fa3_cin),
@@ -77,7 +77,7 @@ module adder_25 (
   reg [1-1:0] M_fa4_a;
   reg [1-1:0] M_fa4_b;
   reg [1-1:0] M_fa4_cin;
-  full_adder_29 fa4 (
+  full_adder_30 fa4 (
     .a(M_fa4_a),
     .b(M_fa4_b),
     .cin(M_fa4_cin),
@@ -90,7 +90,7 @@ module adder_25 (
   reg [1-1:0] M_fa5_a;
   reg [1-1:0] M_fa5_b;
   reg [1-1:0] M_fa5_cin;
-  full_adder_29 fa5 (
+  full_adder_30 fa5 (
     .a(M_fa5_a),
     .b(M_fa5_b),
     .cin(M_fa5_cin),
@@ -103,7 +103,7 @@ module adder_25 (
   reg [1-1:0] M_fa6_a;
   reg [1-1:0] M_fa6_b;
   reg [1-1:0] M_fa6_cin;
-  full_adder_29 fa6 (
+  full_adder_30 fa6 (
     .a(M_fa6_a),
     .b(M_fa6_b),
     .cin(M_fa6_cin),
@@ -116,7 +116,7 @@ module adder_25 (
   reg [1-1:0] M_fa7_a;
   reg [1-1:0] M_fa7_b;
   reg [1-1:0] M_fa7_cin;
-  full_adder_29 fa7 (
+  full_adder_30 fa7 (
     .a(M_fa7_a),
     .b(M_fa7_b),
     .cin(M_fa7_cin),

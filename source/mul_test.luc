@@ -9,7 +9,8 @@ module mul_test (
     input reset // reset fsm to first state
   ) {
 
-  fsm state(.clk(clk), .rst(rst)) = {MULTEST0, MULTEST1, MULTEST2, MULTEST3, END};
+  // fsm for mul and div test cases
+  fsm state(.clk(clk), .rst(rst)) = {MULTEST0, MULTEST1, MULTEST2, MULTEST3, DIVTEST0, DIVTEST1, END};
   dff counter[28](.clk(clk), .rst(rst));
   sig getNextState;
   sig resetFSM;
@@ -22,6 +23,7 @@ module mul_test (
     alufn = 0;
     resetFSM = reset;
     
+    // get next state counter
     counter.d = counter.q + 1;
     if (counter.q >= 28hffffff0) {
       getNextState = 1;
@@ -31,6 +33,7 @@ module mul_test (
     
     case (state.q) {
     
+      // mul
       state.MULTEST0:
         testA = 8h10;
         testB = 8h08;
@@ -43,7 +46,8 @@ module mul_test (
         } else {
           state.d = state.MULTEST0;
         }
-        
+      
+      // mul exceeding bit limit
       state.MULTEST1:
         testA = 8h10;
         testB = 8h10;
@@ -58,7 +62,8 @@ module mul_test (
         } else {
           state.d = state.MULTEST1;
         }
-        
+      
+      // negatvie number mul test  
       state.MULTEST2:
         testA = 8hff;
         testB = 8h02;
@@ -73,7 +78,8 @@ module mul_test (
         } else {
           state.d = state.MULTEST2;
         }
-        
+      
+      // mul test for negative with negative  
       state.MULTEST3:
         testA = 8hff;
         testB = 8hfe;
@@ -81,12 +87,44 @@ module mul_test (
         
         if (getNextState == 1) {
           if (alu == 8h02 && test == 3h1) {
-            state.d = state.END;
+            state.d = state.DIVTEST0;
           } else if (resetFSM == 1) {
             state.d = state.MULTEST0;
           }  
         } else {
           state.d = state.MULTEST3;
+        }
+      
+      // positive div test case  
+      state.DIVTEST0:
+        testA = 8h10;
+        testB = 8h04;
+        alufn = 6h03;
+        
+        if (getNextState == 1) {
+          if (alu == 8h04 && test == 3h0) {
+            state.d = state.DIVTEST1;
+          } else if (resetFSM == 1) {
+            state.d = state.MULTEST0;
+          }  
+        } else {
+          state.d = state.DIVTEST0;
+        }
+      
+      // negative with negative div  
+      state.DIVTEST1:
+        testA = 8h80;
+        testB = 8h80;
+        alufn = 6h03;
+        
+        if (getNextState == 1) {
+          if (alu == 8h01 && test == 3h4) {
+            state.d = state.END;
+          } else if (resetFSM == 1) {
+            state.d = state.MULTEST0;
+          }  
+        } else {
+          state.d = state.DIVTEST0;
         }
         
       state.END:

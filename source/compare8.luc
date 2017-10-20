@@ -10,8 +10,7 @@ module compare8 (
   
   always {
     
-    
-    
+    // selectors for function for LSB of cmp output 
     if (alufn == 2b01) {
       c = z;
     } else if (alufn == 2b10) {

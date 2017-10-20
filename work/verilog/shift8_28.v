@@ -4,7 +4,7 @@
    This is a temporary file and any changes made to it will be destroyed.
 */
 
-module shift8_27 (
+module shift8_28 (
     input [7:0] a,
     input [2:0] b,
     input [1:0] alufn,

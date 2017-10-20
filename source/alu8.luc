@@ -8,15 +8,16 @@ module alu8 (
     output cout
   ) {
 
-arith8 arith;
-compare8 compare;
-boole8 boole;
-shift_with_rotate shift;  
+  // submodules of the alu: arithmetic, shift, boolean, compare
+  arith8 arith;
+  compare8 compare;
+  boole8 boole;
+  shift_with_rotate shift;  
   
-sig out[4][8];
+  sig out[4][8];
   
   always {
-    
+    // input a and b to all the submodules
     arith.a = a; arith.b = b; arith.alufn = alufn[1:0]; out[0] = arith.out;
     boole.a = a; boole.b = b; boole.alufn = alufn[3:0]; out[1] = boole.boole;
     shift.a = a; shift.b = b[2:0]; shift.alufn = alufn[3:0]; out[2] = shift.out; shift.cin = cin;
@@ -24,6 +25,7 @@ sig out[4][8];
     test[2] = arith.z; test[1] = arith.v; test[0] = arith.n;
     cout = 0;
     
+    // select output for alu based on alufn[5:4]
     if (alufn[5:4] == 2b00){
       alu = out[0];
     } else if (alufn[5:4] == 2b01) {

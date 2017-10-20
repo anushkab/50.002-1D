@@ -10,6 +10,7 @@ module shift_with_rotate (
   sig c[8];
   sig xb[3];
   
+  // submodules to carry out shift and rotate operations
   shift8 shifter(.a(a), .b(xb), .alufn(alufn[1:0]));
   adder adder(.a(shifter.shift), .b(c), .alufn(0));
   // rotate left alufn 100100
@@ -19,29 +20,41 @@ module shift_with_rotate (
   
   always {
     
+    // set shift to 1 bit for rotate operations
     if (alufn[2] == 1) {
       xb = 1;
     } else {
       xb = b;
     }
     
+    // output for shifter and rotater
     out = adder.sum;
     
+    // selectors for rotate operations
+    // rotate left
     if (alufn == 4h4) {
       c[0] = a[7];
       c[7:1] = 0;
-    } else if (alufn == 4h5) {
+    } 
+    // rotate right
+    else if (alufn == 4h5) {
       c[7] = a[0];
       c[6:0] = 0;
-    } else if (alufn == 4hc) {
+    } 
+    // rotate left with carry
+    else if (alufn == 4hc) {
       cout = a[7];
       c[0] = cin;
       c[7:1] = 0;
-    } else if (alufn == 4hd) {
+    } 
+    // rotate right with carry  
+    else if (alufn == 4hd) {
       c[7] = cin;
       c[6:0] = 0;
       cout = a[0];
-    } else {
+    } 
+    // output for regular shift operations  
+    else {
       c = 0;
       cout = 0;
     }
