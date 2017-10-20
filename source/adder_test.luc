@@ -9,7 +9,7 @@ module adder_test (
     input reset // reset fsm to first state
   ) {
 
-
+  // fsm for testing add and sub
   fsm state(.clk(clk), .rst(rst)) = {ADDTEST0, ADDTEST1, ADDTEST2, ADDTEST3, ADDTEST4, SUBTEST0, SUBTEST1, SUBTEST2, SUBTEST3, END}; 
   dff counter[28](.clk(clk), .rst(rst));
   sig getNextState;
@@ -26,6 +26,7 @@ module adder_test (
     testTest = test;
     resetFSM = reset;    
     
+    // counter for get next state
     counter.d = counter.q + 1;
     if (counter.q >= 28hffffff0) {
       getNextState = 1;
@@ -35,6 +36,7 @@ module adder_test (
     
     case (state.q) {
     
+      // test for small positive integer addition
       state.ADDTEST0:
         testA = 8h01;
         testB = 8h01;
@@ -47,7 +49,8 @@ module adder_test (
         } else {
           state.d = state.ADDTEST0;
         }
-        
+      
+      // test for large positive integer addition  
       state.ADDTEST1:
         testA = 8h7f;
         testB = 8h7f;
@@ -62,7 +65,8 @@ module adder_test (
         } else {
           state.d = state.ADDTEST1;
         }  
-        
+      
+      // test for large positive integer with large negative integer
       state.ADDTEST2:
         testA = 8h7f;
         testB = 8h80;
@@ -76,8 +80,9 @@ module adder_test (
           } 
         } else {
           state.d = state.ADDTEST2;
-        } 
-        
+        }
+         
+      // complementary test case for previous test case, highlight problems with alufn input
       state.ADDTEST3:
         testA = 8h80;
         testB = 8h7f;
@@ -93,6 +98,7 @@ module adder_test (
           state.d = state.ADDTEST3;
         } 
         
+      // large negative integer with large negative integer
       state.ADDTEST4:
         testA = 8h80;
         testB = 8h80;
@@ -108,6 +114,7 @@ module adder_test (
           state.d = state.SUBTEST0;
         }
         
+      // test case for small positive integer subtraction
       state.SUBTEST0:
         testA = 8h01;
         testB = 8h01;
@@ -122,7 +129,8 @@ module adder_test (
         } else {
           state.d = state.SUBTEST0;
         }
-        
+      
+      // test case for large positive integer subtraction  
       state.SUBTEST1:
         testA = 8h7f;
         testB = 8h7f;
@@ -137,7 +145,8 @@ module adder_test (
         } else {
           state.d = state.SUBTEST1;
         }
-        
+      
+      // large positive integer subtract large negative integer  
       state.SUBTEST2:
         testA = 8h7f;
         testB = 8h80;
@@ -152,7 +161,8 @@ module adder_test (
         } else {
           state.d = state.SUBTEST2;
         }
-        
+       
+      // large negative integer subtract large positive integer 
       state.SUBTEST3:
         testA = 8h80;
         testB = 8h7f;

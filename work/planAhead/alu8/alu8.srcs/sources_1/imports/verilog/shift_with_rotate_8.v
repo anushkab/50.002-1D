@@ -20,7 +20,7 @@ module shift_with_rotate_8 (
   reg [2:0] xb;
   
   wire [8-1:0] M_shifter_shift;
-  shift8_27 shifter (
+  shift8_28 shifter (
     .a(a),
     .b(xb),
     .alufn(alufn[0+1-:2]),

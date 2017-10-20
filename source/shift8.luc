@@ -30,8 +30,8 @@ module shift8 (
         r = 0;  
     }
     
-    
-    // shift logic
+    // shift left logic
+    // shift 4 bits
     if (b[2] == 1) {
       for (i = 0; i < 4; i++) {
         x[i] = r;
@@ -42,7 +42,8 @@ module shift8 (
     } else {
         x = xa;
     }
-      
+    
+    // shift 2 bits
     if (b[1] == 1) {
       for (i = 0; i < 2; i++) {
         y[i] = r;
@@ -53,7 +54,8 @@ module shift8 (
     } else {
         y = x;
     }
-      
+    
+    // shift 1 bit
     if (b[0] == 1) {
       for (i = 1; i < 8; i++) {
         z[i] = r;
@@ -65,7 +67,6 @@ module shift8 (
     } else {
         z = y;
     }
-    
       
     // reverse outputs for right shift
     if (alufn[0] == 1) {

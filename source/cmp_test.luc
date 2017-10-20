@@ -8,6 +8,7 @@ module cmp_test (
     input reset // reset fsm to first state
   ) {
 
+  // fsm for shift and rotate tests
   fsm state(.clk(clk), .rst(rst)) = {CMPEQTEST0, CMPEQTEST1, CMPLTTEST0, CMPLTTEST1, CMPLTTEST2, CMPLTTEST3, CMPLETEST0, CMPLETEST1, CMPLETEST2, CMPLETEST3, END}; 
   dff counter[28](.clk(clk), .rst(rst));
   sig getNextState;
@@ -20,6 +21,7 @@ module cmp_test (
     alufn = 0;
     resetFSM = reset; 
     
+    // get next state counter
     counter.d = counter.q + 1;
     if (counter.q >= 28hffffff0) {
       getNextState = 1;
@@ -29,6 +31,7 @@ module cmp_test (
     
     case (state.q) {
     
+      // equals
       state.CMPEQTEST0:
         testA = 8haa;
         testB = 8haa;
@@ -56,7 +59,8 @@ module cmp_test (
         } else {
           state.d = state.CMPEQTEST1;
         }
-        
+      
+      // less than  
       state.CMPLTTEST0:
         testA = 8haa;
         testB = 8haa;
@@ -116,7 +120,7 @@ module cmp_test (
         } else {
           state.d = state.CMPLTTEST3;
         }
-        
+      // less than or equals  
       state.CMPLETEST0:
         testA = 8haa;
         testB = 8haa;

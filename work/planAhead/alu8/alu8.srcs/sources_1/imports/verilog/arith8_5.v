@@ -42,6 +42,15 @@ module arith8_5 (
     .p(M_mul8_p)
   );
   
+  wire [8-1:0] M_div8_c;
+  reg [8-1:0] M_div8_a;
+  reg [8-1:0] M_div8_b;
+  div_27 div8 (
+    .a(M_div8_a),
+    .b(M_div8_b),
+    .c(M_div8_c)
+  );
+  
   always @* begin
     M_adder8_a = a;
     M_adder8_b = b;
@@ -51,10 +60,16 @@ module arith8_5 (
     z = M_adder8_z;
     n = M_adder8_n;
     v = M_adder8_v;
+    M_div8_a = a;
+    M_div8_b = b;
     if (alufn == 2'h2) begin
       out = M_mul8_p;
     end else begin
-      out = M_adder8_sum;
+      if (alufn == 2'h3) begin
+        out = M_div8_c;
+      end else begin
+        out = M_adder8_sum;
+      end
     end
   end
 endmodule

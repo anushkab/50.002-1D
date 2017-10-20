@@ -15,7 +15,7 @@ module test_rig (
   sig pp[8];
   
   .clk(clk) {
-  
+  // pipeline to delay inputs to test fsm for longer time between test cases (states)
     pipeline pp0(#DEPTH(28), .in(alu[0]));
     pipeline pp1(#DEPTH(28), .in(alu[1]));
     pipeline pp2(#DEPTH(28), .in(alu[2]));
@@ -55,24 +55,34 @@ module test_rig (
     pp[6] = pp6.out;
     pp[7] = pp7.out;
     
+    // selector for test rig test suites
+    // test cases for add/sub
     if (select == 3h0) {
       testA = adderTest.testA;
       testB = adderTest.testB;
       alufn = adderTest.alufn;  
-    } else if (select == 3h1) {
+    } 
+    // test cases for mul/div
+    else if (select == 3h1) {
       testA = mulTest.testA;
       testB = mulTest.testB;
       alufn = mulTest.alufn;
-    } else if (select == 3h2) {
+    } 
+    // test cases for boolean
+    else if (select == 3h2) {
       testA = booleTest.testA;
       testB = booleTest.testB;
       alufn = booleTest.alufn;
-    } else if (select == 3h3) {
+    }
+    // test cases for shift and rotate
+    else if (select == 3h3) {
       testA = shiftTest.testA;
       testB = shiftTest.testB;
       alufn = shiftTest.alufn;
       cin = shiftTest.cin;
-    } else if (select == 3h4) {
+    } 
+    // test cases for compare
+    else if (select == 3h4) {
       testA = cmpTest.testA;
       testB = cmpTest.testB;
       alufn = cmpTest.alufn;

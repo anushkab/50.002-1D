@@ -1,12 +1,12 @@
 module div (
-    input clk,  // clock
-    input rst,  // reset
     input a[8],
     input b[8],
-    output out
+    output c[8]
   ) {
 
   always {
-    out = 0;
+    // divide a by b, treat a and b as signed
+    
+    c = $signed(a)/$signed(b);
   }
 }

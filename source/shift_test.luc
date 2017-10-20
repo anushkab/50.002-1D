@@ -10,6 +10,7 @@ module shift_test (
     input reset // reset fsm to first state
   ) {
 
+  // fsm for shift and rotate test cases
   fsm state(.clk(clk), .rst(rst)) = {SHLTEST0, SHLTEST1, SHRTEST0, SHRTEST1, SRATEST0, SRATEST1, RLTEST0, RRTEST0, RLCTEST0, RLCTEST1, RRCTEST0, RRCTEST1, END}; 
   dff counter[28](.clk(clk), .rst(rst));
   sig getNextState;
@@ -23,6 +24,7 @@ module shift_test (
     cin = 0;
     resetFSM = reset; 
     
+    // get next state counter
     counter.d = counter.q + 1;
     if (counter.q >= 28hffffff0) {
       getNextState = 1;
@@ -32,6 +34,7 @@ module shift_test (
   
     case (state.q) {
     
+      // shift left
       state.SHLTEST0:
         testA = 8haa;
         testB = 8h02;
@@ -60,6 +63,7 @@ module shift_test (
           state.d = state.SHLTEST1;
         }
         
+       // shift right
        state.SHRTEST0:
         testA = 8haa;
         testB = 8h07;
@@ -90,6 +94,7 @@ module shift_test (
           state.d = state.SHRTEST1;
         }
         
+       // shift right arithmetic
        state.SRATEST0:
         testA = 8haa;
         testB = 8h02;
@@ -119,7 +124,8 @@ module shift_test (
         } else {
           state.d = state.SRATEST1;
         }
-        
+      
+      // rotate test left    
       state.RLTEST0:
         testA = 8h81;
         testB = 0;
@@ -134,7 +140,7 @@ module shift_test (
         } else {
           state.d = state.RLTEST0;
         }
-        
+      // rotate test right  
       state.RRTEST0:
         testA = 8h81;
         testB = 0;
@@ -149,7 +155,8 @@ module shift_test (
         } else {
           state.d = state.RRTEST0;
         }
-        
+      
+      // rotate left with carry  
       state.RLCTEST0:
         testA = 8h81;
         testB = 0;
@@ -182,6 +189,7 @@ module shift_test (
           state.d = state.RLCTEST1;
         }
         
+      // rotate right with carry  
       state.RRCTEST0:
         testA = 8h81;
         testB = 0;
