@@ -93,7 +93,7 @@ module mojo_top (
         alufn = testRig.alufn;
         cin = testRig.cin;
         
-        alu = alu8test.alu;
+        alu = alu8test.alu ^ io_dip[0];
         test = alu8test.test;
         test[3] = alu8test.cout;
         select = io_dip[2][2:0];
