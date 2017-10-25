@@ -13,13 +13,13 @@
     <src>boole_test.luc</src>
     <src>arith8.luc</src>
     <src>mul.luc</src>
-    <src>seven_seg.luc</src>
     <src>test_rig.luc</src>
-    <src>cmp_test.luc</src>
-    <src>shift_test.luc</src>
+    <src>seven_seg.luc</src>
     <src>adder.luc</src>
-    <src>adder_test.luc</src>
+    <src>shift_test.luc</src>
+    <src>cmp_test.luc</src>
     <src>full_adder.luc</src>
+    <src>adder_test.luc</src>
     <ucf lib="true">io_shield.ucf</ucf>
     <ucf lib="true">mojo.ucf</ucf>
     <component>decoder.luc</component>
